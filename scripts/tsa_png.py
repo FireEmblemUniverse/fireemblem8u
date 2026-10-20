@@ -19,6 +19,10 @@
 #
 # Map binary layout: one byte width-1, one byte height-1, then width*height
 # little-endian 16-bit entries (tile | hflip << 10 | vflip << 11 | bank << 12).
+# The rows are stored from the bottom of the screen to the top, each row from
+# left to right (the same order tsa_generator.py writes). Cells in this script's
+# overrides file and messages use screen coordinates: column and row from the
+# top-left corner.
 #
 # A flipped symmetric tile looks the same as an unflipped one, so the picture
 # cannot say which one the map used. By default the lowest tile number with the
@@ -99,7 +103,7 @@ def build(screen_path, sheet_path, overrides_path):
             lookup.setdefault(pixels.tobytes(), []).append((number, flips))
     overrides = read_overrides(overrides_path)
 
-    entries = []
+    entries = [0] * (cols * rows)
     for row in range(rows):
         for col in range(cols):
             cell = screen[row * 8:(row + 1) * 8, col * 8:(col + 1) * 8]
@@ -119,7 +123,7 @@ def build(screen_path, sheet_path, overrides_path):
             else:
                 tile, flips = min(matches, key=lambda m: (m[0], m[1][0] + m[1][1]))
                 entry = tile | (flips[0] << 10) | (flips[1] << 11) | (bank << 12)
-            entries.append(entry)
+            entries[(rows - 1 - row) * cols + col] = entry
     return bytes([cols - 1, rows - 1]) + struct.pack(f"<{len(entries)}H", *entries)
 
 
@@ -135,7 +139,8 @@ def render(map_path, sheet_path, pal_path, out_path):
         tile, hflip, vflip, bank = decode_entry(entry)
         if tile >= len(tiles):
             fail(f"{map_path}: entry {i} uses tile {tile}, but the sheet has {len(tiles)}")
-        screen[(i // cols) * 8:(i // cols + 1) * 8, (i % cols) * 8:(i % cols + 1) * 8] = (
+        row = rows - 1 - i // cols
+        screen[row * 8:(row + 1) * 8, (i % cols) * 8:(i % cols + 1) * 8] = (
             bank * 16 + flipped(tiles[tile])[(hflip, vflip)])
     lines = open(pal_path, encoding="utf-8").read().splitlines()
     if lines[0] != "JASC-PAL":
@@ -150,7 +155,7 @@ def suggest_overrides(built, expected):
     width, height = expected[0] + 1, expected[1] + 1
     a = struct.unpack(f"<{width * height}H", built[2:])
     b = struct.unpack(f"<{width * height}H", expected[2:])
-    return [f"{i % width} {i // width} 0x{b[i]:04x}" for i in range(width * height) if a[i] != b[i]]
+    return [f"{i % width} {height - 1 - i // width} 0x{b[i]:04x}" for i in range(width * height) if a[i] != b[i]]
 
 
 def main():

@@ -4,7 +4,7 @@
 Remove the raw binary tile maps (`.bin`) for eight backgrounds from the repository and make a picture the source of each map. These are the backgrounds that were still built with `.4bpp.lz` tiles and a raw `.bin` map (see `data/data_bg.s`), instead of the generated `.feimg2.bin` / `.fetsa2.bin` pair that most other backgrounds use: Cell, Grass_Plains_2, Interior_Black, Castle_Back, Garden, Manse_Back, Serafew_Village, and Volcano.
 
 ## Format
-A background map is a TSA: one byte of width-1, one byte of height-1, then width × height little-endian 16-bit entries, row by row from the top-left. Each entry is:
+A background map is a TSA: one byte of width-1, one byte of height-1, then width × height little-endian 16-bit entries. The rows are stored from the bottom of the screen to the top, each row left to right (the same order `tsa_generator.py` writes). Each entry is:
 
 - bits 0–9: tile index into the tile sheet
 - bit 10: horizontal flip
@@ -35,7 +35,7 @@ For each 8 × 8 cell, the script looks up the cell's pixels in the tile sheet, w
 
 A flipped symmetric tile looks the same as an unflipped one, so the picture cannot say which one the original map used. By default the script picks the lowest tile number with the fewest flips. The 17 cells in Manse_Back that differ from that choice are symmetric tiles the original marks as flipped, and `bg_Manse_Back.overrides` gives their entries. An override has to produce the same picture as the cell it replaces, or the script stops.
 
-The overrides file was produced with the `--expect` option, which compares the built map with a known-good one and prints the lines to add.
+The overrides file was produced with the `--expect` option, which compares the built map with a known-good one and prints the lines to add. Cells in it are given as screen coordinates: column and row from the top-left corner.
 
 | Background | Palette banks used | Horizontal flips | Vertical flips | Overrides |
 |---|---|---|---|---|
