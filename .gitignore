@@ -969,11 +969,11 @@ include/msg_data.h
 !src/libagbsyscall.s
 
 # Generated from graphics/bg/*.screen.png by scripts/tsa_png.py
-/graphics/bg/bg_Cell.bin
-/graphics/bg/bg_Grass_Plains_2.bin
-/graphics/bg/bg_Interior_Black.bin
-/graphics/bg/bg_Castle_Back.bin
-/graphics/bg/bg_Garden.bin
-/graphics/bg/bg_Manse_Back.bin
-/graphics/bg/bg_Serafew_Village.bin
-/graphics/bg/bg_Volcano.bin
+graphics/bg/bg_Cell.bin
+graphics/bg/bg_Grass_Plains_2.bin
+graphics/bg/bg_Interior_Black.bin
+graphics/bg/bg_Castle_Back.bin
+graphics/bg/bg_Garden.bin
+graphics/bg/bg_Manse_Back.bin
+graphics/bg/bg_Serafew_Village.bin
+graphics/bg/bg_Volcano.bin
