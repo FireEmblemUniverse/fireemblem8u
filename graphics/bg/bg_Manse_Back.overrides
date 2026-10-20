@@ -1,0 +1,21 @@
+# Cells of bg_Manse_Back.screen.png whose tile the original map marks as flipped.
+# The tiles are symmetric, so the picture looks the same either way and cannot
+# say which flip the map used. See scripts/tsa_png.py.
+# <column> <row> <map entry in hex>
+3 0 0x55e6
+3 15 0x640c
+18 17 0x640c
+19 17 0x640c
+21 17 0x640c
+22 17 0x1436
+3 18 0x642b
+16 18 0x640c
+17 18 0x640c
+1 19 0x640c
+2 19 0x640c
+3 19 0x640c
+4 19 0x640c
+5 19 0x640c
+7 19 0x640c
+8 19 0x640c
+16 19 0x640c
