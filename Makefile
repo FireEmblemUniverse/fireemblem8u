@@ -193,7 +193,9 @@ include json_data_rules.mk
 %.rl: % ; $(GBAGFX) $< $@
 %.fk: % ; ./scripts/compressor.py $< fk
 %.bin: %.mar  ; $(MARTOMAP)  $< $@
-%.bin: %.screen.png %.png ; $(PYTHON) $(PNG2TSA) build $*.screen.png $*.png $@ $(if $(wildcard $*.overrides),--overrides $*.overrides)
+# Background tile maps built from their screen PNGs (scripts/tsa_png.py). Only these eight.
+BG_TSA_MAPS := $(addsuffix .bin,$(addprefix graphics/bg/bg_,Cell Grass_Plains_2 Interior_Black Castle_Back Garden Manse_Back Serafew_Village Volcano))
+$(BG_TSA_MAPS): %.bin: %.screen.png %.png ; $(PYTHON) $(PNG2TSA) build $*.screen.png $*.png $@ $(if $(wildcard $*.overrides),--overrides $*.overrides)
 sound/%.bin: sound/%.aif ; $(AIF2PCM) $< $@
 
 %.4bpp.h: %.4bpp
