@@ -1106,7 +1106,7 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
     CpuFastCopy(gBanimTerrainPaletteMaybe[GetAnimPosition(anim1)], gPaletteBuffer + 0x130, PLTT_SIZE_4BPP);
     EnablePaletteSync();
 
-    sub_805AFA0(gEkrDistanceType, GetAnimPosition(anim1));
+    BanimCopyBgTM(gEkrDistanceType, GetAnimPosition(anim1));
     sub_8053618(gEkrBgPosition);
 
     return;
@@ -1152,7 +1152,7 @@ void efxHitQuake_Loop(struct ProcEfxQuake * proc)
         if (proc->unk_64 != NULL)
         {
             AnimDelete(proc->unk_64);
-            sub_805AE58(&gUnknown_0201FADC);
+            EkrTerrainfx_PutTiles(&gEkrTerrainfxDesc);
         }
 
         x1 = gEkrXPosReal[0] - gEkrBgPosition;

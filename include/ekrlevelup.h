@@ -46,7 +46,7 @@ enum ekr_lvup_status_index {
     EKRLVUP_STAT_LVPRE_VAL
 };
 
-extern struct BanimUnkStructComm gUnknown_020200E0;
+extern struct EkrTerrainfxDesc gUnknown_020200E0;
 
 struct ProcEkrLvupApfx {
     /* 00 */ PROC_HEADER;

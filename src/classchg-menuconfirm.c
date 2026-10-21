@@ -39,7 +39,7 @@ u8 PromoSubConfirmMenuOnSelect(struct MenuProc *proc, struct MenuItemProc *b)
         found = Proc_Find(ProcScr_PromoMain);
 
         EndAllProcChildren(found);
-        ClassChgLoadEfxTerrain();
+        ClassChgEndEkrPreview();
         Proc_Goto(found, PROMOMAIN_LABEL_POST_SEL);
     }
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A;

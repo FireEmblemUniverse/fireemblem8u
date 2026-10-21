@@ -568,8 +568,8 @@ extern struct ProcCmd ProcScr_ekrUnitKakudai[];
 extern AnimScr BanimScr_DefaultAnim[];
 extern void *TsaConfs_BanimTmA[];
 extern struct ProcCmd gProc_ekrChienCHR[];
-extern struct ProcCmd gProc_efxAnimeDrvProc[];
-extern struct ProcCmd ProcScr_ekrUnitMainMini[];
+extern struct ProcCmd ProcScr_EfxAnimeDrv[];
+extern struct ProcCmd ProcScr_EkrUnitMainMini[];
 extern struct ProcCmd gProc_ekrTogiInit[];
 extern struct ProcCmd gProc_ekrTogiEnd[];
 extern struct ProcCmd gProc_ekrTogiColor[];
@@ -923,69 +923,84 @@ s16 GetAnimNextRoundTypeAnotherSide(struct Anim * anim);
 void SetAnimStateHidden(int ais_id);
 void SetAnimStateUnHidden(int ais_id);
 
-struct BanimUnkStructComm
+/**
+ * EkrTerrainfx
+ */
+struct EkrTerrainfxDesc
 {
-    /* 00 */ s16 terrain_l; // terrain L
-    /* 02 */ s16 pal_l; // pal ID L
-    /* 04 */ s16 chr_l; // chr L
+    /* 00 */ s16 terrain_l;
+    /* 02 */ s16 pal_l;
+    /* 04 */ s16 chr_l;
     /* 06 */ s16 terrain_r;
     /* 08 */ s16 pal_r;
-    /* 0A */ s16 chr_r; // chr R
+    /* 0A */ s16 chr_r;
     /* 0C */ s16 distance;
-    /* 0E */ s16 unk0E;
-    /* 10 */ u16 unk10;
-    /* 14 */ ProcPtr proc14; // sub emulator proc a
-    /* 18 */ ProcPtr proc18; // sub emulator proc b
-    /* 1C */ void * unk1C;
-    /* 20 */ void * unk20;
-    /* 24 */ void * unk24;
+    /* 0E */ s16 bg_index;
+    /* 10 */ u16 unk_10;
+    /* 12 */ STRUCT_PAD(0x12, 0x14);
+    /* 14 */ struct ProcEkrSubAnimeEmulator * proc1;
+    /* 18 */ struct ProcEkrSubAnimeEmulator * proc2;
+    /* 1C */ void * vram_offset;
+    /* 20 */ void * img_buf;
+    /* 24 */ void * _pad_24;
 };
 
-struct AnimBuffer
+/**
+ * ekrmainmini
+ */
+struct EkrMainMiniDesc
 {
-    /* 00 */ u8 unk_00;
-    /* 01 */ u8 genericPalId;
-    /* 02 */ u16 xPos;
-    /* 04 */ u16 yPos;
-    /* 06 */ s16 animId;
-    /* 08 */ s16 charPalId;
-    /* 0A */ u16 roundType;
-    /* 0C */ u16 state2;
-    /* 0E */ u16 oam2Tile;
-    /* 10 */ u16 oam2Pal;
+    /* 00 */ u8 valid;
+    /* 01 */ u8 faction_pal;
+    /* 02 */ u16 x;
+    /* 04 */ u16 y;
+    /* 06 */ s16 bid;
+    /* 08 */ s16 char_pal;
+    /* 0A */ u16 round_type;
+    /* 0C */ u16 pos;
+    /* 0E */ u16 oam2_chr;
+    /* 10 */ u16 oam2_pal;
+    /* 12 */ STRUCT_PAD(0x12, 0x14);
     /* 14 */ struct Anim * anim1;
     /* 18 */ struct Anim * anim2;
-    /* 1C */ void * pImgSheetBuf;
-    /* 20 */ void * unk_20; // pal
-    /* 24 */ void * unk_24; // rtlOam
-    /* 28 */ void * unk_28; // frameData
-    /* 2C */ const void * unk_2C; // sheetPointer
-    /* 30 */ void * unk_30; // magicEffects
-    /* 34 */ void * unk_34; // ProcPtr; Procs_ekrUnitMainMini
+    /* 1C */ void * img_buf;
+    /* 20 */ void * pal_buf;
+    /* 24 */ void * oam_buf;
+    /* 28 */ void * scr_buf;
+    /* 2C */ const void * img_sheet;
+    /* 30 */ void * magicfx_desc;
+    /* 34 */ ProcPtr proc;
 };
 
-void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim);
-void sub_805A580(struct Anim *);
-void sub_805A5A8(struct Anim *);
-void InitMainMiniAnim(struct AnimBuffer * pAnimBuf);
-void sub_805A7B4(struct AnimBuffer * pAnimBuf);
-void sub_805A930(struct AnimBuffer * pAnimBuf, int animId, int charPalId);
-void sub_805A940(struct AnimBuffer * pAnimBuf, u16 x, u16 y);
-void sub_805A95C(struct AnimBuffer * pAnimBuf, u16 layer);
-bool sub_805A96C(struct AnimBuffer * pAnimBuf);
-void sub_805A990(struct AnimBuffer * pAnimBuf);
-bool sub_805A9A4(struct AnimBuffer * pAnimBuf);
+struct ProcEkrUnitMainMini
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x5C);
+    /* 5C */ struct EkrMainMiniDesc * desc;
+};
+
+void EkrMainMini_ExecCommands(struct EkrMainMiniDesc * desc, struct Anim * anim);
+void EkrMainMini_C01_Blocking(struct Anim * anim);
+void EkrMainMini_C0D_ExecNextRoundAfterAttack(struct Anim * anim);
+void EkrMainMini_InitAnim(struct EkrMainMiniDesc * desc);
+void EkrMainMini_UpdateAnim(struct EkrMainMiniDesc * desc);
+void EkrMainMini_ChangeAnim(struct EkrMainMiniDesc * desc, int bid, int char_pal);
+void EkrMainMini_SetAnimPosition(struct EkrMainMiniDesc * desc, u16 x, u16 y);
+void EkrMainMini_SetAnimLayer(struct EkrMainMiniDesc * desc, u16 layer);
+bool EkrMainMini_CheckBlocking(struct EkrMainMiniDesc * desc);
+void EkrMainMini_EndBlock(struct EkrMainMiniDesc * desc);
+bool EkrMainMini_CheckDone(struct EkrMainMiniDesc * desc);
 void NewEfxAnimeDrvProc(void);
 void EndEfxAnimeDrvProc(void);
-void ExecAllAIS(void);
-void NewEkrUnitMainMini(struct AnimBuffer * pAnimBuf);
-void sub_805AA28(struct AnimBuffer * pAnimBuf);
-// ??? EkrUnitMainMiniMain(???);
-// void sub_805AA68(void *);
-// void sub_805AE14(void *);
-// void sub_805AE40(void *, s16, s16, s16, s16);
-void sub_805AE58(struct BanimUnkStructComm *);
-void sub_805AFA0(s16, s16);
+void EkrAnimeDrv_Loop(void);
+void NewEkrUnitMainMini(struct EkrMainMiniDesc * desc);
+void EndEkrMainMini(struct EkrMainMiniDesc * desc);
+void EkrMainMini_Loop(struct ProcEkrUnitMainMini * proc);
+void NewEkrTerrainfx(struct EkrTerrainfxDesc * desc);
+void EndEkrTerrainfx(struct EkrTerrainfxDesc * desc);
+void EkrTerrainfx_SetPosition(struct EkrTerrainfxDesc * desc, s16 x1, s16 y1, s16 x2, s16 y2);
+void EkrTerrainfx_PutTiles(struct EkrTerrainfxDesc * desc);
+void BanimCopyBgTM(s16 distance, s16 position);
 
 struct ProcEkrTogi
 {

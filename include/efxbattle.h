@@ -213,28 +213,10 @@ struct ProcEfxMagicQuake
     /* 60 */ ProcPtr pQuakePureProc;
 };
 
-struct Unknown_030053E0 {
-    u16 u00;
-    u16 u02;
-    u16 u04;
-    u16 u06;
-    u16 u08;
-    u16 u0a;
-    u16 u0c;
-    u16 u0e;
-    u16 u10;
-    u16 u12;
-    u16 *buf;
-    u8 *u18;
-    u8 *u1c;
-    u8 *u20;
-    void (*u24)(void);
-};
-extern struct Unknown_030053E0 gUnknown_030053E0;
+extern struct EkrMainMiniDesc gClassChgEkrMiniDesc;
+extern struct AnimMagicFxBuffer gClassChgEkrMagiDesc;
 
-extern struct AnimBuffer gUnknown_030053A0;
-
-extern struct BanimUnkStructComm gUnknown_0201FADC;
+extern struct EkrTerrainfxDesc gEkrTerrainfxDesc;
 
 struct ProcEfxFlashing {
     PROC_HEADER;

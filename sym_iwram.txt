@@ -145,8 +145,8 @@
 . = 0x005360; gFontClassChgMenu = .;
 . = 0x005380; gFontClassChg = .;
 . = 0x005398; gUnknown_03005398 = .;
-. = 0x0053A0; gUnknown_030053A0 = .;
-. = 0x0053E0; gUnknown_030053E0 = .;
+. = 0x0053A0; gClassChgEkrMiniDesc = .;
+. = 0x0053E0; gClassChgEkrMagiDesc = .;
 . = 0x005408; gUnknown_03005408 = .;
 . = 0x005410; gSoundInfo = .;
 . = 0x0063C0; gMPlayInfo_SE4_BMP2 = .;

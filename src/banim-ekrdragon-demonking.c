@@ -1,9 +1,5 @@
 #include "gbafe.h"
 
-void sub_805AA68(void *);
-void sub_805AE14(void *);
-void sub_805AE40(void *, s16, s16, s16, s16);
-
 EWRAM_OVERLAY(banim) u16 gEkrBgPaletteBackup[0x20] = {0};
 
 CONST_DATA struct ProcCmd ProcScr_EkrDK[] = {
@@ -275,7 +271,7 @@ ProcPtr NewEkrDragonBaseAppear(struct Anim * anim)
     proc->finished = false;
     proc->timer = 0;
     FillBGRect(gBG2TilemapBuffer, 0x20, 0x20, 0, 0);
-    sub_805AA68(&gUnknown_0201FADC);
+    NewEkrTerrainfx(&gEkrTerrainfxDesc);
     CpuFastCopy(PAL_BG(4), gEkrBgPaletteBackup, 0x40);
     EfxPalBlackInOut(PAL_BG(0), 4, 2, 0x10);
     return proc;

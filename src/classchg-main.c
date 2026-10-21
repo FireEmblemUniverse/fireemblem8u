@@ -15,8 +15,6 @@
 
 int PromoMain_SetupTraineeEvent_(struct ProcPromoMain *proc);
 bool PromoTraineeEventExists(struct ProcPromoMain *proc);
-bool StartAndWaitPromoSelect(ProcPtr proc);
-bool sub_80CD330(struct ProcPromoMain *proc);
 
 CONST_DATA struct ProcCmd ProcScr_PromoMain[] = {
 	PROC_NAME("ccramify"),
@@ -36,7 +34,7 @@ PROC_LABEL(PROMOMAIN_LABEL_TRAINEE),
 PROC_LABEL(PROMOMAIN_LABEL_SEL_EN),
     PROC_WHILE(StartAndWaitPromoSelect),
     PROC_SLEEP(5),
-    PROC_REPEAT(sub_80CD330),
+    PROC_REPEAT(PromoMain_WaitSelection),
 
 PROC_LABEL(PROMOMAIN_LABEL_POST_SEL),
     PROC_CALL(ExecClassChgReal),

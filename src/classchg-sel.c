@@ -22,10 +22,6 @@
 #include "bmitem.h"
 #include "prepscreen.h"
 
-void sub_805AE14(void *);
-void sub_805AA68(void *);
-void sub_805AE40(void *, s16, s16, s16, s16);
-
 void ChangeClassDescription(u32 msg) {
     SetInitTalkTextFont();
     ClearTalkText();
@@ -46,18 +42,18 @@ void LoadClassReelFontPalette(struct ProcPromoSel *proc, int class_id) {
     u8 _pad_[0xC];
     u16 jid = class_id;
 
-    proc->u44 = 0;
-    proc->u46 = 0;
-    proc->u47 = 0x78;
+    proc->timer = 0;
+    proc->name_width = 0;
+    proc->name_x = 0x78;
     class = GetClassData(jid);
     GetStringFromIndexInBuffer(class->nameTextId, str);
 
     for (i = 0; i < 20 /* sizeof(str) */ && str[i] != '\0'; i++) {
         struct ClassDisplayFont *font = GetClassDisplayFontInfo(str[i]);
         if (font)
-            proc->u46 += font->width - font->xBase;
+            proc->name_width += font->width - font->xBase;
         else
-            proc->u46 += 4;
+            proc->name_width += 4;
     }
 
     Decompress(&Img_ClassReel_ClassNameLetters, OBJ_VRAM0 + 0x1000);
@@ -84,15 +80,15 @@ void LoadClassNameInClassReelFont(struct ProcPromoSel *proc) {
         }
     }
 
-    if (proc->u44 < 0xff)
-        proc->u44++;
+    if (proc->timer < 0xff)
+        proc->timer++;
 }
 
-void ClassChgLoadEfxTerrain(void)
+void ClassChgEndEkrPreview(void)
 {
     EndEfxAnimeDrvProc();
-    sub_805AA28(&gUnknown_030053A0);
-    sub_805AE14(&gUnknown_0201FADC);
+    EndEkrMainMini(&gClassChgEkrMiniDesc);
+    EndEkrTerrainfx(&gEkrTerrainfxDesc);
 }
 
 void ClassChgLoadUI(void)
@@ -103,7 +99,7 @@ void ClassChgLoadUI(void)
     RegisterTsaWithOffset(gBG2TilemapBuffer, Tsa_ClassReel_UiBox, TILEREF(0x180, BGPAL_TEXT_DEFAULT) + 0x1000);
 }
 
-void ClassChgSelDrawPidName(struct ProcPromoSel *proc) {
+void ClassChgSel_DrawClassNames(struct ProcPromoSel *proc) {
     u8 _pad_[0x16];
     const struct ClassData *class;
     char *string;
@@ -183,7 +179,7 @@ ProcPtr StartPromoClassSelect(ProcPtr parent)
     return Proc_StartBlocking(ProcScr_PromoSelect, parent);
 }
 
-void Make6C_PromotionMenuSelect(struct ProcPromoSel* proc) {
+void PromoSel_Init(struct ProcPromoSel* proc) {
     struct ProcPromoMain *parent = proc->proc_parent;
     struct ProcPromoHandler *grandparent;
     struct Unit *unit;
@@ -191,15 +187,15 @@ void Make6C_PromotionMenuSelect(struct ProcPromoSel* proc) {
 
     parent->stat = PROMO_MAIN_STAT_2;
     proc->pid = parent->pid;
-    proc->u50 = 9;
+    proc->terrain = 9;
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
     LoadUiFrameGraphics();
     LoadObjUIGfx();
-    sub_80CD47C(0, -1, 0xfb * 2, 0x58, 6);
+    ClassChg_InitMainMini(0, -1, 0xfb * 2, 0x58, 6);
     ClassChgLoadUI();
-    sub_80CD408(proc->u50, 0x8c * 2, 0x68);
+    ClassChg_InitTerrainfx(proc->terrain, 0x8c * 2, 0x68);
 
     proc->sprite[0] = 0;
     proc->sprite[1] = 0;
@@ -274,7 +270,7 @@ void Make6C_PromotionMenuSelect(struct ProcPromoSel* proc) {
     }
 }
 
-void sub_80CCF60(struct ProcPromoSel *proc) {
+void PromoSel_StartClassDesc(struct ProcPromoSel *proc) {
     u16 tmp;
 
     ResetTextFont();
@@ -306,24 +302,24 @@ void sub_80CCF60(struct ProcPromoSel *proc) {
     REG_BG3CNT = tmp + 1;
 }
 
-void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
+void PromoSel_Loop(struct ProcPromoSel *proc) {
     u32 a;
     u8 b;
-    struct ProcPromoSel *p2;
-    struct ProcPromoSel *c2;
+    struct ProcEkrSubAnimeEmulator *terrainL;
+    struct ProcEkrSubAnimeEmulator *terrainR;
     struct Anim *anim1;
     struct Anim *anim2;
     struct Unit copied_unit;
-    void *tmp;
+    struct EkrMainMiniDesc *desc;
     u16 chara_pal;
-    anim1 = gUnknown_030053A0.anim1;
-    anim2 = gUnknown_030053A0.anim2;
+    anim1 = gClassChgEkrMiniDesc.anim1;
+    anim2 = gClassChgEkrMiniDesc.anim2;
 
-    p2 = (void *)gUnknown_0201FADC.proc14;
-    c2 = (void *)gUnknown_0201FADC.proc18;
+    terrainL = gEkrTerrainfxDesc.proc1;
+    terrainR = gEkrTerrainfxDesc.proc2;
 
     a = proc->stat;
-    tmp = &gUnknown_030053A0;
+    desc = &gClassChgEkrMiniDesc;
 
     if (a == 1) {
         u16 _pid, _jid;
@@ -332,9 +328,9 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
         const struct BattleAnimDef * battle_anim_ptr;
         u32 battle_anim_id;
         u16 ret;
-        if ((s16) p2->sprite[0] <= 0x117) {
-            p2->sprite[0] += 12;
-            c2->sprite[0] += 12;
+        if (terrainL->x1 <= 0x117) {
+            terrainL->x1 += 12;
+            terrainR->x1 += 12;
             anim1->xPosition += 12;
             anim2->xPosition = anim1->xPosition;
         } else {
@@ -343,7 +339,7 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
 
         if (proc->stat == 2) {
             EndEfxAnimeDrvProc();
-            sub_805AA28(&gUnknown_030053A0);
+            EndEkrMainMini(&gClassChgEkrMiniDesc);
             _pid = proc->pid - 1;
             _jid = proc->jid[proc->main_select];
             chara_pal = -1;
@@ -362,25 +358,25 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
                     break;
                 }
             }
-            sub_80CD47C((s16) ret, (s16) chara_pal, (s16) (p2->sprite[0] + 0x28), 0x58, 6);
-            sub_805AE14(&gUnknown_0201FADC);
-            sub_80CD408(proc->u50, p2->sprite[0], p2->msg_desc[1]);
+            ClassChg_InitMainMini((s16) ret, (s16) chara_pal, (s16) (terrainL->x1 + 0x28), 0x58, 6);
+            EndEkrTerrainfx(&gEkrTerrainfxDesc);
+            ClassChg_InitTerrainfx(proc->terrain, terrainL->x1, terrainL->y1);
         } else {
             goto D1AC;
         }
     }
     ++proc; --proc;
     b = proc->stat;
-    tmp = &gUnknown_030053A0;
+    desc = &gClassChgEkrMiniDesc;
     if (b == 2) {
-        if ((s16) p2->sprite[0] > 0x82) {
+        if (terrainL->x1 > 0x82) {
 #ifdef NONMATCHING
             u16 off = 12;
 #else
             register u16 off asm("r1") = 12;
 #endif // NONMATCHING
-            p2->sprite[0] -= off;
-            c2->sprite[0] -= off;
+            terrainL->x1 -= off;
+            terrainR->x1 -= off;
             anim1->xPosition -= off;
             anim2->xPosition = anim1->xPosition;
         } else {
@@ -388,14 +384,14 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
         }
     }
 D1AC:
-    if ((u8) sub_805A96C(tmp)) {
-        sub_805A990(tmp);
+    if ((u8) EkrMainMini_CheckBlocking(desc)) {
+        EkrMainMini_EndBlock(desc);
     }
     LoadClassNameInClassReelFont(proc);
     return;
 }
 
-void sub_80CD1D4(struct ProcPromoSel *proc)
+void PromoSel_EndOnMap(struct ProcPromoSel *proc)
 {
     struct ProcPromoMain *parent = proc->proc_parent;
     struct ProcPromoHandler *gparent = parent->proc_parent;
@@ -406,13 +402,13 @@ void sub_80CD1D4(struct ProcPromoSel *proc)
         Proc_End(proc);
         Proc_End(parent);
         Proc_End(gparent);
-        sub_805AA28(&gUnknown_030053A0);
-        sub_805AE14(&gUnknown_0201FADC);
+        EndEkrMainMini(&gClassChgEkrMiniDesc);
+        EndEkrTerrainfx(&gEkrTerrainfxDesc);
         EndEfxAnimeDrvProc();
     }
 }
 
-void PrepClassChgOnCancel(struct ProcPromoSel *proc)
+void PromoSel_OnPrepCancel(struct ProcPromoSel *proc)
 {
     struct ProcPromoMain *parent;
     struct ProcPromoHandler *gparent;
@@ -424,8 +420,8 @@ void PrepClassChgOnCancel(struct ProcPromoSel *proc)
         Proc_End(proc);
         Proc_End(parent);
         Proc_End(gparent);
-        sub_805AA28(&gUnknown_030053A0);
-        sub_805AE14(&gUnknown_0201FADC);
+        EndEkrMainMini(&gClassChgEkrMiniDesc);
+        EndEkrTerrainfx(&gEkrTerrainfxDesc);
         EndEfxAnimeDrvProc();
         gActionData.unitActionType = 0;
         Proc_Goto(ggparent, PROC_LABEL_PREPITEMUSE_CONFIRM);
@@ -439,7 +435,7 @@ void PrepClassChgOnCancel(struct ProcPromoSel *proc)
     }
 }
 
-void sub_80CD294(struct ProcPromoSel *proc)
+void PromoSel_RoutePreEnd(struct ProcPromoSel *proc)
 {
     struct ProcPromoMain *parent;
     struct ProcPromoHandler *gparent;
@@ -453,7 +449,7 @@ void sub_80CD294(struct ProcPromoSel *proc)
         Proc_Goto(proc, 4);
 }
 
-void sub_80CD2CC(struct ProcPromoSel *proc)
+void PromoSel_RouteOnEnd(struct ProcPromoSel *proc)
 {
     struct ProcPromoMain *parent;
     struct ProcPromoHandler *gparent;
@@ -486,7 +482,7 @@ bool StartAndWaitPromoSelect(struct ProcPromoMain *proc)
     }
 }
 
-bool sub_80CD330(struct ProcPromoMain *proc)
+bool PromoMain_WaitSelection(struct ProcPromoMain *proc)
 {
     switch (proc->stat) {
     case PROMO_MAIN_STAT_INIT:
@@ -501,7 +497,7 @@ bool sub_80CD330(struct ProcPromoMain *proc)
     }
 }
 
-void sub_80CD34C(void)
+void ClassChgMagi_ResetBlend(void)
 {
     SetBlendConfig(1, 16, 16, 0);
     SetBlendTargetA(0, 1, 0, 0, 0);
@@ -517,25 +513,25 @@ void sub_80CD34C(void)
     gLCDControlBuffer.bldcnt.target2_bd_on = true;
 }
 
-void sub_80CD408(u32 a, s16 b, s16 c) {
-    gUnknown_0201FADC.terrain_l = a;
-    gUnknown_0201FADC.pal_l = 0xe;
-    gUnknown_0201FADC.chr_l = 0x380;
-    gUnknown_0201FADC.terrain_r = a;
-    gUnknown_0201FADC.pal_r = 0xf;
-    gUnknown_0201FADC.chr_r = 0xf0 << 2;
-    gUnknown_0201FADC.distance = 0;
-    gUnknown_0201FADC.unk0E = -1;
-    gUnknown_0201FADC.unk1C = (void *)0x06010000;
-    gUnknown_0201FADC.unk20 = gUnk_Banim_020145C8;
-    sub_805AA68(&gUnknown_0201FADC);
+void ClassChg_InitTerrainfx(u32 terrain, s16 x, s16 y) {
+    gEkrTerrainfxDesc.terrain_l = terrain;
+    gEkrTerrainfxDesc.pal_l = 0xe;
+    gEkrTerrainfxDesc.chr_l = 0x380;
+    gEkrTerrainfxDesc.terrain_r = terrain;
+    gEkrTerrainfxDesc.pal_r = 0xf;
+    gEkrTerrainfxDesc.chr_r = 0xf0 << 2;
+    gEkrTerrainfxDesc.distance = 0;
+    gEkrTerrainfxDesc.bg_index = -1;
+    gEkrTerrainfxDesc.vram_offset = (void *)0x06010000;
+    gEkrTerrainfxDesc.img_buf = gUnk_Banim_020145C8;
+    NewEkrTerrainfx(&gEkrTerrainfxDesc);
 
-    sub_805AE40(&gUnknown_0201FADC, b, c, b + 0x60, c);
+    EkrTerrainfx_SetPosition(&gEkrTerrainfxDesc, x, y, x + 0x60, y);
 }
 
-void sub_80CD47C(int a, int b, int c, int d, int e) {
-    u16 c1 = c;
-    u16 d1 = d;
+void ClassChg_InitMainMini(int bid, int char_pal, int x, int y, int round_type) {
+    u16 xPos = x;
+    u16 yPos = y;
     if (gKeyStatusPtr->heldKeys & 0xc)
         gUnknown_03005408[0] = 0;
 
@@ -543,38 +539,38 @@ void sub_80CD47C(int a, int b, int c, int d, int e) {
         gUnknown_03005408[0] += 1;
 
     NewEfxAnimeDrvProc();
-    gUnknown_030053A0.xPos = c1;
-    gUnknown_030053A0.yPos = d1;
-    gUnknown_030053A0.state2 = 1;
-    gUnknown_030053A0.animId = a;
-    gUnknown_030053A0.charPalId = b;
-    gUnknown_030053A0.roundType = e;
-    gUnknown_030053A0.genericPalId = 0;
-    gUnknown_030053A0.oam2Tile = 0x200;
-    gUnknown_030053A0.oam2Pal = 0xa;
-    gUnknown_030053A0.pImgSheetBuf = gBanimLeftImgSheetBuf;
-    gUnknown_030053A0.unk_24 = gBanimOaml;
-    gUnknown_030053A0.unk_20 = gBanimPaletteLeft;
-    gUnknown_030053A0.unk_28 = gBanimScrLeft;
-    gUnknown_030053A0.unk_30 = &gUnknown_030053E0;
-    gUnknown_030053E0.u00 = 0x4;
-    gUnknown_030053E0.u02 = 0;
-    gUnknown_030053E0.u04 = 0;
-    gUnknown_030053E0.u06 = 0;
-    gUnknown_030053E0.u08 = 0;
-    gUnknown_030053E0.u0e = 0x300;
-    gUnknown_030053E0.u10 = 0x8;
-    gUnknown_030053E0.u0a = 0x200;
-    gUnknown_030053E0.u0c = 0x4;
-    gUnknown_030053E0.u12 = 0x1;
-    gUnknown_030053E0.buf = gBG1TilemapBuffer;
-    gUnknown_030053E0.u18 = gSpellAnimBgfx;
-    gUnknown_030053E0.u1c = (void *)gEkrTsaBuffer;
-    gUnknown_030053E0.u20 = gBuf_Banim;
-    gUnknown_030053E0.u24 = sub_80CD34C;
+    gClassChgEkrMiniDesc.x = xPos;
+    gClassChgEkrMiniDesc.y = yPos;
+    gClassChgEkrMiniDesc.pos = 1;
+    gClassChgEkrMiniDesc.bid = bid;
+    gClassChgEkrMiniDesc.char_pal = char_pal;
+    gClassChgEkrMiniDesc.round_type = round_type;
+    gClassChgEkrMiniDesc.faction_pal = 0;
+    gClassChgEkrMiniDesc.oam2_chr = 0x200;
+    gClassChgEkrMiniDesc.oam2_pal = 0xa;
+    gClassChgEkrMiniDesc.img_buf = gBanimLeftImgSheetBuf;
+    gClassChgEkrMiniDesc.oam_buf = gBanimOaml;
+    gClassChgEkrMiniDesc.pal_buf = gBanimPaletteLeft;
+    gClassChgEkrMiniDesc.scr_buf = gBanimScrLeft;
+    gClassChgEkrMiniDesc.magicfx_desc = &gClassChgEkrMagiDesc;
+    gClassChgEkrMagiDesc.magicFuncIdx = 0x4;
+    gClassChgEkrMagiDesc.xOffsetBg = 0;
+    gClassChgEkrMagiDesc.yOffsetBg = 0;
+    gClassChgEkrMagiDesc.xOffsetObj = 0;
+    gClassChgEkrMagiDesc.yOffsetObj = 0;
+    gClassChgEkrMagiDesc.objChr = 0x300;
+    gClassChgEkrMagiDesc.objPalId = 0x8;
+    gClassChgEkrMagiDesc.bgChr = 0x200;
+    gClassChgEkrMagiDesc.bgPalId = 0x4;
+    gClassChgEkrMagiDesc.bg = 0x1;
+    gClassChgEkrMagiDesc.bgTmBuf = gBG1TilemapBuffer;
+    gClassChgEkrMagiDesc.bgImgBuf = gSpellAnimBgfx;
+    gClassChgEkrMagiDesc.bgTsaBuf = (void *)gEkrTsaBuffer;
+    gClassChgEkrMagiDesc.objImgBuf = gBuf_Banim;
+    gClassChgEkrMagiDesc.resetCallback = ClassChgMagi_ResetBlend;
 
     ResetClassReelSpell();
-    NewEkrUnitMainMini(&gUnknown_030053A0);
+    NewEkrUnitMainMini(&gClassChgEkrMiniDesc);
 }
 
 u8 LoadClassBattleSprite(s16 * out, u16 jid, u16 wpn_before) 
@@ -615,7 +611,7 @@ u8 LoadClassBattleSprite(s16 * out, u16 jid, u16 wpn_before)
     return false;
 }
 
-void NewCcramifyEnd(void) {
+void StartPromoSelectEnd(void) {
     Proc_Start(ProcScr_PromoSelectEnd, PROC_TREE_3);
 }
 
@@ -627,30 +623,30 @@ CONST_DATA struct ProcCmd ProcScr_PromoSelect[] = {
     PROC_NAME("ccramify"),
 
 PROC_LABEL(PROC_CLASSCHG_SEL_INIT),
-    PROC_CALL(Make6C_PromotionMenuSelect),
+    PROC_CALL(PromoSel_Init),
     PROC_SLEEP(6),
-    PROC_CALL(sub_80CCF60),
+    PROC_CALL(PromoSel_StartClassDesc),
 
 PROC_LABEL(PROC_CLASSCHG_SEL_1),
     PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
-    PROC_REPEAT(LoadBattleSpritesForBranchScreen),
+    PROC_REPEAT(PromoSel_Loop),
     PROC_GOTO(PROC_CLASSCHG_SEL_END1),
 
 /* Pre End */
 PROC_LABEL(PROC_CLASSCHG_SEL_2),
-    PROC_CALL(sub_80CD294),
+    PROC_CALL(PromoSel_RoutePreEnd),
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
 
 /* On End */
 PROC_LABEL(PROC_CLASSCHG_SEL_4),
-    PROC_CALL(sub_80CD1D4),
-    PROC_CALL(sub_80CD2CC),
-    PROC_SET_END_CB(NewCcramifyEnd),
+    PROC_CALL(PromoSel_EndOnMap),
+    PROC_CALL(PromoSel_RouteOnEnd),
+    PROC_SET_END_CB(StartPromoSelectEnd),
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
-    PROC_CALL(PrepClassChgOnCancel),
+    PROC_CALL(PromoSel_OnPrepCancel),
 
 PROC_LABEL(PROC_CLASSCHG_SEL_END2),
 PROC_LABEL(PROC_CLASSCHG_SEL_END1),
