@@ -7044,7 +7044,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = (void *)0x88b6e28,
+        .redas = REDA_088B6E28,
         .items = {
             ITEM_SWORD_RAPIER,
             ITEM_VULNERARY,
@@ -7058,7 +7058,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = (void *)0x88b6e30,
+        .redas = REDA_088B6E30,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
@@ -7072,7 +7072,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = (void *)0x88b6e38,
+        .redas = REDA_088B6E38,
         .items = {
             ITEM_BOW_IRON,
             ITEM_VULNERARY,
@@ -7086,7 +7086,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = (void *)0x88b6e40,
+        .redas = REDA_088B6E40,
         .items = {
             ITEM_STAFF_HEAL,
         },
@@ -7099,7 +7099,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = (void *)0x88b6e48,
+        .redas = REDA_088B6E48,
         .items = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
@@ -7113,7 +7113,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = (void *)0x88b6e50,
+        .redas = REDA_088B6E50,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_SILVER,
@@ -7128,7 +7128,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = (void *)0x88b6e58,
+        .redas = REDA_088B6E58,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
@@ -7142,7 +7142,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = (void *)0x88b6e60,
+        .redas = REDA_088B6E60,
         .items = {
             ITEM_LANCE_SLIM,
             ITEM_VULNERARY,
@@ -37163,7 +37163,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2980[] = {
         .xPosition = 9,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = (void *)0x88c2964,
+        .redas = REDA_088C2964,
     },
     { 0 },
 };

@@ -29,6 +29,5 @@ gUnknown_08599F54:  @ 0x08599F54
     .global gUnknown_08599F74
 gUnknown_08599F74:  @ 0x08599F74
     .incbin "graphics/generic_icon/2.gbapal" @ 3rd team color [green]
-
-    @ 4th team [purple] ends up being unused as there is no way to have generics in the arena, which is the only place where the 4th team exists.
+gPal_GenericIcon3: @ 0x08599F94 4th team [purple] ends up being unused as there is no way to have generics in the arena, which is the only place where the 4th team exists.
     .incbin "graphics/generic_icon/3.gbapal"

@@ -88,7 +88,7 @@ u32 FramScr_Unk5D4F84[] = {
 };
 
 u32 FramScr_Unk5D4F90[] = {
-    0x85D4F85, /* (uintptr_t)FramScr_Unk5D4F84 + 1 */
+    (uintptr_t)FramScr_Unk5D4F84 + 1,
     0x80000000
 };
 
