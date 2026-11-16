@@ -23,7 +23,7 @@ int AiCountNearbyEnemyUnits(s16, s16);
 // ??? AiCountNearbyAlliedUnits(???);
 void FillMovementAndRangeMapForItem(struct Unit* unit, u16 item);
 // ??? AiMakeMoveRangeUnitPowerMaps(???);
-// ??? sub_803B678(???);
+// ??? AiMakeMoveRangeMapsForUnitAndWeapon(???);
 s8 AiFindBestAdjacentPositionByFunc(int, int, u8(*)(int, int), struct Vec2*);
 int AiGetItemStealRank(u16 item);
 s8 AiGetUnitStealItemSlot(struct Unit* unit);

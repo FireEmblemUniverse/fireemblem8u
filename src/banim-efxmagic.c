@@ -347,7 +347,7 @@ void EfxMagicHBlank_805B7FC(void)
 CONST_DATA struct ProcCmd ProcScr_EfxRestWINH[] = {
     PROC_NAME("efxRestWINH"),
     PROC_REPEAT(sub_805B94C),
-    PROC_REPEAT(sub_805B958),
+    PROC_REPEAT(EfxRestWINH_Loop),
     PROC_END
 };
 
@@ -415,7 +415,7 @@ void sub_805B94C(ProcPtr proc)
     Proc_Break(proc);
 }
 
-void sub_805B958(struct ProcEfx *proc)
+void EfxRestWINH_Loop(struct ProcEfx *proc)
 {
     if (gBmSt.main_loop_ended != false) {
         if (proc->unk48 == 0x2) {
@@ -527,7 +527,7 @@ struct ProcCmd CONST_DATA ProcScr_efxCircleWIN[] =
 // clang-format on
 
 //! FE8U = 0x0805BB24
-void sub_805BB24(struct Anim * anim, int terminator, u16 * c, u16 d, u16 e)
+void NewEfxCircleWIN(struct Anim * anim, int terminator, u16 * c, u16 d, u16 e)
 {
     struct ProcEfxCircleWIN * proc;
 

@@ -583,7 +583,7 @@ void ApplySystemObjectsPalettes(void) {
 }
 
 //! FE8U = 0x080156D4
-void sub_80156D4(void) {
+void ApplySystemGraphics(void) {
 
     ResetText();
     LoadLegacyUiFrameGraphics();
@@ -1002,7 +1002,7 @@ void StoreAdjustedCameraPositions(int xIn, int yIn, int* xOut, int* yOut) {
 }
 
 //! FE8U = 0x08015D84
-s8 sub_8015D84(ProcPtr parent, int x, int y) {
+s8 CameraMoveWatchPosition(ProcPtr parent, int x, int y) {
     struct CamMoveProc* proc;
 
     int xTarget;

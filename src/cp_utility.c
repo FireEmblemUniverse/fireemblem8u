@@ -833,7 +833,7 @@ void AiMakeMoveRangeUnitPowerMaps(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803B678
-void sub_803B678(struct Unit* unit, u16 item) {
+void AiMakeMoveRangeMapsForUnitAndWeapon(struct Unit* unit, u16 item) {
     int ix;
     int iy;
 

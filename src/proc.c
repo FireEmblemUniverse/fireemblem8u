@@ -428,7 +428,7 @@ static void ForAllFollowingProcs(struct Proc* proc, ProcFunc func)
 }
 
 // unreferenced
-static void sub_80030CC(ProcPtr proc, ProcFunc func)
+static void Proc_ForSubtree(ProcPtr proc, ProcFunc func)
 {
     struct Proc* casted = (struct Proc*) proc;
 

@@ -44,7 +44,7 @@ void PutUnitSprite(int, int, int, struct Unit*);
 void PutUnitSpriteForClassId(int layer, int x, int y, u16 oam2, int class);
 // ??? sub_8027CFC(???);
 void sub_8027DB4(int layer, int x, int y, u16 oam2base, int classId, int id);
-void sub_8027E4C(int layer, int x, int y, int oam2, struct Unit* unit);
+void PutUnitSpriteExt(int layer, int x, int y, int oam2, struct Unit* unit);
 // void SMS_DisplayOne(int class, int layer, int x, int y, int oam2, s8 isBlend);
 void PutBlendWindowUnitSprite(int, int, int, int, struct Unit*);
 // ??? sub_8028100(???);

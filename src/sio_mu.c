@@ -344,7 +344,7 @@ struct ProcCmd CONST_DATA ProcScr_SioWarpFxPartial[] =
 // clang-format on
 
 //! FE8U = 0x0804C260
-ProcPtr sub_804C260(struct Unit * unit, struct MuProc * muProc, int x, int y, int facing, u8 playStepSe, ProcPtr parent)
+ProcPtr NewSioWarpFxPartial(struct Unit * unit, struct MuProc * muProc, int x, int y, int facing, u8 playStepSe, ProcPtr parent)
 {
     struct SioWarpProc * proc;
 

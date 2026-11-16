@@ -78,8 +78,8 @@ PROC_LABEL(1),
 
 PROC_LABEL(2),
     PROC_CALL(UnitList_StartPageChange),
-    PROC_REPEAT(sub_8091D54),
-    PROC_REPEAT(sub_8091F10),
+    PROC_REPEAT(UnitList_PageSlideOut_Loop),
+    PROC_REPEAT(UnitList_PageSlideIn_Loop),
 
     PROC_GOTO(1),
 
@@ -121,8 +121,8 @@ PROC_LABEL(1),
 
 PROC_LABEL(2),
     PROC_CALL(UnitList_StartPageChange),
-    PROC_REPEAT(sub_8091D54),
-    PROC_REPEAT(sub_8091F10),
+    PROC_REPEAT(UnitList_PageSlideOut_Loop),
+    PROC_REPEAT(UnitList_PageSlideIn_Loop),
 
     PROC_GOTO(1),
 
@@ -202,8 +202,8 @@ PROC_LABEL(1),
 
 PROC_LABEL(2),
     PROC_CALL(UnitList_StartPageChange),
-    PROC_REPEAT(sub_8091D54),
-    PROC_REPEAT(sub_8091F10),
+    PROC_REPEAT(UnitList_PageSlideOut_Loop),
+    PROC_REPEAT(UnitList_PageSlideIn_Loop),
 
     PROC_GOTO(1),
 
@@ -285,7 +285,7 @@ void sub_809014C(void)
 
 
 //! FE8U = 0x080901BC
-void sub_80901BC(u8 x, u8 y, u8 width)
+void UnitList_PutBoxSprites(u8 x, u8 y, u8 width)
 {
     int i;
 
@@ -302,7 +302,7 @@ void sub_80901BC(u8 x, u8 y, u8 width)
 }
 
 //! FE8U = 0x08090238
-void sub_8090238(u8 key)
+void UnitList_PutSortKeyLabel(u8 key)
 {
     int i;
     int j;
@@ -345,7 +345,7 @@ void sub_8090238(u8 key)
 }
 
 //! FE8U = 0x08090324
-void sub_8090324(int itemIconId)
+void UnitList_TrackItemIcon(int itemIconId)
 {
     int i;
 
@@ -370,7 +370,7 @@ void sub_8090324(int itemIconId)
 }
 
 //! FE8U = 0x08090358
-void sub_8090358(u16 arg_0)
+void UnitList_ClearOffscreenItemIcons(u16 arg_0)
 {
     int displayIcons[10];
     int i;
@@ -418,7 +418,7 @@ void sub_8090358(u16 arg_0)
 }
 
 //! FE8U = 0x08090418
-void sub_8090418(struct UnitListScreenProc * proc, s8 unk)
+void UnitList_MoveCursorToLastSelectedUnit(struct UnitListScreenProc * proc, s8 unk)
 {
     int i;
 
@@ -501,7 +501,7 @@ void sub_8090418(struct UnitListScreenProc * proc, s8 unk)
 }
 
 //! FE8U = 0x08090514
-void sub_8090514(s8 flag)
+void UnitList_SetupWindows(s8 flag)
 {
     if (flag != 0)
     {
@@ -558,7 +558,7 @@ void UnitList_StartStatScreen(struct UnitListScreenProc * proc)
 //! FE8U = 0x080906AC
 void UnitList_ResetFromStatScreen(struct UnitListScreenProc * proc)
 {
-    sub_8090D80(proc);
+    UnitList_Setup(proc);
     SetDispEnable(0, 0, 0, 0, 0);
 
     return;
@@ -639,7 +639,7 @@ void UnitListScreenSprites_Main(struct UnitListScreenSpritesProc * proc)
 
         if (proc->unk_3a == 0)
         {
-            sub_8090514(1);
+            UnitList_SetupWindows(1);
             proc->unk_3a = 1;
         }
     }
@@ -650,7 +650,7 @@ void UnitListScreenSprites_Main(struct UnitListScreenSpritesProc * proc)
 
         if (proc->unk_3a == 1)
         {
-            sub_8090514(0);
+            UnitList_SetupWindows(0);
             proc->unk_3a = 0;
         }
     }
@@ -884,7 +884,7 @@ void sub_8090D00(struct UnitListScreenProc * proc)
 }
 
 //! FE8U = 0x08090D80
-void sub_8090D80(struct UnitListScreenProc * proc)
+void UnitList_Setup(struct UnitListScreenProc * proc)
 {
     int i;
     u8 val;
@@ -971,16 +971,16 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     InitText(&gUnknown_0200E148, 20);
     InitText(&gUnknown_0200E150, 8);
 
-    sub_8090238(proc->unk_32);
+    UnitList_PutSortKeyLabel(proc->unk_32);
 
     if (proc->unk_29 == 4)
     {
-        sub_8090418(proc, 0);
+        UnitList_MoveCursorToLastSelectedUnit(proc, 0);
         proc->unk_29 = 0;
     }
     else if (proc->mode == UNITLIST_MODE_PREPMENU)
     {
-        sub_8090418(proc, 1);
+        UnitList_MoveCursorToLastSelectedUnit(proc, 1);
     }
 
     proc->unk_3c = 0;
@@ -1058,7 +1058,7 @@ void UnitList_Init(struct UnitListScreenProc * proc)
     proc->unk_34 = 0;
     proc->unk_35 = 0;
 
-    sub_8090D80(proc);
+    UnitList_Setup(proc);
 
     return;
 }
@@ -1367,7 +1367,7 @@ void sub_80917D8(struct UnitListScreenProc * proc)
                 UnitList_PutRow(proc, i, gBG0TilemapBuffer, proc->page, 1);
             }
 
-            sub_8090358(proc->unk_3e);
+            UnitList_ClearOffscreenItemIcons(proc->unk_3e);
             BG_EnableSyncByMask(1);
         }
 
@@ -1375,7 +1375,7 @@ void sub_80917D8(struct UnitListScreenProc * proc)
         proc->unk_35 = proc->unk_2d;
 
         if (proc->unk_32 != unk_32)
-            sub_8090238(proc->unk_32);
+            UnitList_PutSortKeyLabel(proc->unk_32);
 
         return;
     }
@@ -1496,7 +1496,7 @@ void sub_8091AEC(struct UnitListScreenProc * proc)
             if ((proc->unk_3e % 0x10) == 0)
             {
                 proc->unk_29 = 0;
-                sub_8090358(proc->unk_3e);
+                UnitList_ClearOffscreenItemIcons(proc->unk_3e);
             }
 
             break;
@@ -1508,7 +1508,7 @@ void sub_8091AEC(struct UnitListScreenProc * proc)
             if ((proc->unk_3e % 0x10) == 0)
             {
                 proc->unk_29 = 0;
-                sub_8090358(proc->unk_3e);
+                UnitList_ClearOffscreenItemIcons(proc->unk_3e);
             }
 
             break;
@@ -1594,7 +1594,7 @@ void UnitList_StartPageChange(struct UnitListScreenProc * proc)
 extern u8 gUnknown_08A17B30[];
 
 //! FE8U = 0x08091D54
-void sub_8091D54(struct UnitListScreenProc * proc)
+void UnitList_PageSlideOut_Loop(struct UnitListScreenProc * proc)
 {
     int i;
     int r4;
@@ -1665,7 +1665,7 @@ void sub_8091D54(struct UnitListScreenProc * proc)
     }
 
     ResetIconGraphics();
-    sub_8090238(proc->unk_32);
+    UnitList_PutSortKeyLabel(proc->unk_32);
 
     for (r4 = proc->unk_3e / 16; r4 < proc->unk_3e / 16 + 6 && r4 < gUnknown_0200F158; r4++)
     {
@@ -1692,7 +1692,7 @@ void sub_8091D54(struct UnitListScreenProc * proc)
 #define TILEMAP_INDEX_(aX, aY) ((aX) + (aY) * 0x20)
 
 //! FE8U = 0x08091F10
-void sub_8091F10(struct UnitListScreenProc * proc)
+void UnitList_PageSlideIn_Loop(struct UnitListScreenProc * proc)
 {
     int r4, r5;
 
@@ -1750,7 +1750,7 @@ void sub_8091F10(struct UnitListScreenProc * proc)
 #else
 
 NAKEDFUNC
-void sub_8091F10(struct UnitListScreenProc * proc)
+void UnitList_PageSlideIn_Loop(struct UnitListScreenProc * proc)
 {
     asm("\n\
         .syntax unified\n\
@@ -2195,7 +2195,7 @@ void UnitList_PutRow(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 
                 DrawIcon(
                     tm + y * 0x20 + 15, GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)),
                     TILEREF(0, 4));
-                sub_8090324(GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)));
+                UnitList_TrackItemIcon(GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)));
             }
 
             ClearText(&gUnknown_0200E098[row][2]);
@@ -2302,7 +2302,7 @@ void UnitList_PutRow(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 
                 DrawIcon(
                     tm + y * 0x20 + 8, GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)),
                     TILEREF(0, 4));
-                sub_8090324(GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)));
+                UnitList_TrackItemIcon(GetItemIconId(GetUnitEquippedWeapon(gSortedUnits[unitNum]->unit)));
             }
 
             PutNumberOrBlank(

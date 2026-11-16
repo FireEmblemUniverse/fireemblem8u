@@ -529,7 +529,7 @@ void efxLiveBG_Loop(struct ProcEfxBG * proc)
         u16 ** tsaR = proc->tsar;
 
         // TODO: Is this the correct data type?
-        sub_805560C(proc->anim, (u16 *)(tsaL + ret * 0x12c), (u16 *)(tsaR + ret * 0x12c));
+        SpellFx_WriteBgMapUncomp(proc->anim, (u16 *)(tsaL + ret * 0x12c), (u16 *)(tsaR + ret * 0x12c));
     }
     else
     {
@@ -1407,7 +1407,7 @@ void StartSubSpell_efxReserveBG2(struct Anim * anim)
     gLCDControlBuffer.bg1cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    sub_8055980();
+    RaiseEkrMiniAnimLayer();
 
     anim->oam2Base &= ~OAM2_LAYER(3);
     anim->oam2Base |= OAM2_LAYER(1);

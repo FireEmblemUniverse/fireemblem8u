@@ -1747,7 +1747,7 @@ void sub_800EF48(struct ConvoBackgroundFadeProc * proc)
             SetDispEnable(FALSE, FALSE, FALSE, TRUE, TRUE);
 
             InitSystemTextFont();
-            sub_80156D4();
+            ApplySystemGraphics();
 
             break;
     }
@@ -1982,7 +1982,7 @@ u8 Event26_CameraControl(struct EventEngineProc * proc)
         if (!sc2)
             EnsureCameraOntoPosition(proc, x, y);
         else
-            sub_8015D84(proc, x, y);
+            CameraMoveWatchPosition(proc, x, y);
 
         SetCursorMapPosition(x, y);
 

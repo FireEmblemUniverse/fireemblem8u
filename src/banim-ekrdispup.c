@@ -117,12 +117,12 @@ void ekrDispUPMain(struct ProcEkrDispUP *proc)
     if (height > 0) {
         if (proc->unk4C == 0) { 
             EfxTmCpyBG(&gUnknown_0880210C[map_idx], &gBG0TilemapBuffer2D[iy][ix1], 15, height, -1, -1);
-            sub_8070D04(&gBG0TilemapBuffer2D[iy][ix1], 15, height, 2, 128);
+            ModifyBGRectTileRefs(&gBG0TilemapBuffer2D[iy][ix1], 15, height, 2, 128);
         }
 
         if (proc->unk50 == 0) {
             EfxTmCpyBG(&gUnknown_088021C0[map_idx], &gBG0TilemapBuffer2D[iy][ix2], ix2, height, -1, -1);
-            sub_8070D04(&gBG0TilemapBuffer2D[iy][ix2], 15, height, 3, 128);
+            ModifyBGRectTileRefs(&gBG0TilemapBuffer2D[iy][ix2], 15, height, 3, 128);
         }
     }
 
@@ -159,7 +159,7 @@ void EfxClearScreenFx(void)
     CpuFastFill16(0, gBG2TilemapBuffer, 0x800);
 
     if (GetBattleAnimArenaFlag() == false)
-        sub_8051E00();
+        EkrDispUp_PutTerrainfx();
     else
         CpuFastFill16(0, gBG2TilemapBuffer, 0x800);
 
@@ -172,7 +172,7 @@ void EfxClearScreenFx(void)
     SetDefaultColorEffects();
 }
 
-void sub_8051E00(void)
+void EkrDispUp_PutTerrainfx(void)
 {
     struct EkrTerrainfxDesc * desc = &gEkrTerrainfxDesc;
     struct BattleAnimTerrain * terrain1 = &battle_terrain_table[gBanimFloorfx[0]];
@@ -280,8 +280,8 @@ void EfxPrepareScreenFx(void)
 
     BG_Fill(gBG0TilemapBuffer, 0x80);
     EfxTmCpyBG(gUnknown_08802508, gBG0TilemapBuffer + 0x1E, 2, 20, -1, -1);
-    sub_8070D04(gBG0TilemapBuffer + 0x1F, 1, 20, 2, 128);
-    sub_8070D04(gBG0TilemapBuffer + 0x1E, 1, 20, 3, 128);
+    ModifyBGRectTileRefs(gBG0TilemapBuffer + 0x1F, 1, 20, 2, 128);
+    ModifyBGRectTileRefs(gBG0TilemapBuffer + 0x1E, 1, 20, 3, 128);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gBanimFactionPal[POS_L], 0), PAL_BG(0x2), 0x20);

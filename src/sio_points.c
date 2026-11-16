@@ -601,7 +601,7 @@ struct ProcCmd CONST_DATA ProcScr_LinkArena_PointsSpriteText[] =
 // clang-format on
 
 //! FE8U = 0x080490EC
-s8 sub_80490EC(int x, int y, const char * str, u8 flag, ProcPtr parent)
+s8 StartSioPointsNumberMovers(int x, int y, const char * str, u8 flag, ProcPtr parent)
 {
     int i;
     struct Text text;
@@ -669,11 +669,11 @@ s8 sub_80490EC(int x, int y, const char * str, u8 flag, ProcPtr parent)
 }
 
 //! FE8U = 0x08049238
-void sub_8049238(ProcPtr proc)
+void StartSioPoints1(ProcPtr proc)
 {
     StartLinkArenaPointsBox();
 
-    if (!sub_80490EC(88, 60, GetStringFromIndex(0x771), 1, proc)) // TODO: msgid "Points"
+    if (!StartSioPointsNumberMovers(88, 60, GetStringFromIndex(0x771), 1, proc)) // TODO: msgid "Points"
     {
         EndLinkArenaPointsBox();
     }
@@ -682,9 +682,9 @@ void sub_8049238(ProcPtr proc)
 }
 
 //! FE8U = 0x0804926C
-void sub_804926C(ProcPtr proc)
+void StartSioPoints2(ProcPtr proc)
 {
     StartLinkArenaPointsBox();
-    sub_80490EC(88, 60, GetStringFromIndex(0x771), 0, proc); // TODO: msgid "Points"
+    StartSioPointsNumberMovers(88, 60, GetStringFromIndex(0x771), 0, proc); // TODO: msgid "Points"
     return;
 }

@@ -13,8 +13,8 @@
 
 CONST_DATA struct ProcCmd ProcScr_ekrBattleEnding[] = {
     PROC_NAME("ekrBattleEnding"),
-    PROC_REPEAT(ekrBattleEnding_80560F0),
-    PROC_REPEAT(ekrBattleEnding_8056170),
+    PROC_REPEAT(EkrBaEnd_BgPaletteOut),
+    PROC_REPEAT(EkrBaEnd_RestoreChapterMap),
     PROC_REPEAT(ekrBattleEnding_80561C8),
     PROC_REPEAT(ekrBattleEnding_8056228),
     PROC_REPEAT(ekrBattleEnding_8056288),
@@ -31,7 +31,7 @@ void NewEkrbattleending(void)
     proc->timer = 0;
 }
 
-void ekrBattleEnding_80560F0(struct ProcEkrBattleEnding * proc)
+void EkrBaEnd_BgPaletteOut(struct ProcEkrBattleEnding * proc)
 {
     int ret;
 
@@ -61,7 +61,7 @@ void ekrBattleEnding_80560F0(struct ProcEkrBattleEnding * proc)
     }
 }
 
-void ekrBattleEnding_8056170(struct ProcEkrBattleEnding * proc)
+void EkrBaEnd_RestoreChapterMap(struct ProcEkrBattleEnding * proc)
 {
     if (gBanimBG == 0) {
         Proc_Break(proc);

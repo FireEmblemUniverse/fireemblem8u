@@ -1130,27 +1130,27 @@ void StartSlowLockingFadeFromWhite(ProcPtr parent)
 
 void sub_8013E30(ProcPtr parent)
 {
-    StartFadeCore(1, 0x04, parent, sub_80141B0);
+    StartFadeCore(1, 0x04, parent, Fade_CommonCallBack);
 }
 
 void sub_8013E48(ProcPtr parent)
 {
-    StartFadeCore(1, 0x08, parent, sub_80141B0);
+    StartFadeCore(1, 0x08, parent, Fade_CommonCallBack);
 }
 
 void sub_8013E60(ProcPtr parent)
 {
-    StartFadeCore(1, 0x10, parent, sub_80141B0);
+    StartFadeCore(1, 0x10, parent, Fade_CommonCallBack);
 }
 
 void sub_8013E78(ProcPtr parent)
 {
-    StartFadeCore(1, 0x20, parent, sub_80141B0);
+    StartFadeCore(1, 0x20, parent, Fade_CommonCallBack);
 }
 
 void sub_8013E90(ProcPtr parent)
 {
-    StartFadeCore(1, 0x40, parent, sub_80141B0);
+    StartFadeCore(1, 0x40, parent, Fade_CommonCallBack);
 }
 
 void sub_8013EA8(ProcPtr parent)
@@ -1173,29 +1173,29 @@ void sub_8013EE4(ProcPtr parent)
     StartFadeCore(0, 0x40, parent, NULL);
 }
 
-void sub_8013EF8(ProcPtr parent)
+void FadeToBlackWithCallBack_Speed04(ProcPtr parent)
 {
-    StartFadeCore(3, 0x04, parent, sub_80141B0);
+    StartFadeCore(3, 0x04, parent, Fade_CommonCallBack);
 }
 
-void sub_8013F10(ProcPtr parent)
+void FadeToBlackWithCallBack_Speed08(ProcPtr parent)
 {
-    StartFadeCore(3, 0x08, parent, sub_80141B0);
+    StartFadeCore(3, 0x08, parent, Fade_CommonCallBack);
 }
 
-void sub_8013F28(ProcPtr parent)
+void FadeToBlackWithCallBack_Speed10(ProcPtr parent)
 {
-    StartFadeCore(3, 0x10, parent, sub_80141B0);
+    StartFadeCore(3, 0x10, parent, Fade_CommonCallBack);
 }
 
-void sub_8013F40(ProcPtr parent)
+void FadeToBlackWithCallBack_Speed20(ProcPtr parent)
 {
-    StartFadeCore(3, 0x20, parent, sub_80141B0);
+    StartFadeCore(3, 0x20, parent, Fade_CommonCallBack);
 }
 
-void sub_8013F58(ProcPtr parent)
+void FadeToBlackWithCallBack_Speed40(ProcPtr parent)
 {
-    StartFadeCore(3, 0x40, parent, sub_80141B0);
+    StartFadeCore(3, 0x40, parent, Fade_CommonCallBack);
 }
 
 void FadeInBlackSpeed04(ProcPtr parent)
@@ -1370,16 +1370,16 @@ bool FadeCore_Tick(struct FadeCoreProc * proc)
 void sub_8014170(void)
 {
     sub_800183C(0x10, 0x10, 0);
-    sub_8014194();
+    RemoveFadeCoreCallBack();
 }
 
 void sub_8014184(int a, int b)
 {
     sub_800183C(a, b, 0);
-    sub_8014194();
+    RemoveFadeCoreCallBack();
 }
 
-void sub_8014194(void)
+void RemoveFadeCoreCallBack(void)
 {
     struct FadeCoreProc * proc = Proc_Find(ProcScr_FadeCore);
 
@@ -1387,7 +1387,7 @@ void sub_8014194(void)
         proc->on_end = NULL;
 }
 
-void sub_80141B0(void)
+void Fade_CommonCallBack(void)
 {
     SetBlendDarken(0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
@@ -1807,7 +1807,7 @@ void CallDelayedArg(void (* func)(int), int arg, int delay)
     proc->clock = delay;
 }
 
-void sub_8014904(u8 * out, int size)
+void ClearBytes(u8 * out, int size)
 {
     while (size > 0)
     {
@@ -1816,7 +1816,7 @@ void sub_8014904(u8 * out, int size)
     }
 }
 
-void sub_801491C(u8 * out, int size, int value)
+void FillBytes(u8 * out, int size, int value)
 {
     while (size > 0)
     {
@@ -1825,7 +1825,7 @@ void sub_801491C(u8 * out, int size, int value)
     }
 }
 
-void sub_8014930(u16 * out, int size, int value)
+void FillHalfwords(u16 * out, int size, int value)
 {
     while (size > 0)
     {
@@ -1910,19 +1910,19 @@ u16 * GetTmOffsetById(int bgid, int x, int y)
     }
 }
 
-void sub_8014A78(void)
+void Clear4bppFirstTile(void)
 {
     if (gLCDControlBuffer.bg0cnt.colorMode == 0)
-        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(0)), 0x10, 0);
+        FillHalfwords((u16 *) (VRAM + GetBackgroundTileDataOffset(0)), 0x10, 0);
 
     if (gLCDControlBuffer.bg1cnt.colorMode == 0)
-        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(1)), 0x10, 0);
+        FillHalfwords((u16 *) (VRAM + GetBackgroundTileDataOffset(1)), 0x10, 0);
 
     if (gLCDControlBuffer.bg2cnt.colorMode == 0)
-        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(2)), 0x10, 0);
+        FillHalfwords((u16 *) (VRAM + GetBackgroundTileDataOffset(2)), 0x10, 0);
 
     if (gLCDControlBuffer.bg3cnt.colorMode == 0)
-        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(3)), 0x10, 0);
+        FillHalfwords((u16 *) (VRAM + GetBackgroundTileDataOffset(3)), 0x10, 0);
 }
 
 int Screen2Pan(int x)
@@ -1968,7 +1968,7 @@ void _FadeBgmOut(short speed)
     Sound_FadeOutBGM(speed);
 }
 
-void sub_8014BE0(int palid)
+void DarkenPalette(int palid)
 {
     int i;
 

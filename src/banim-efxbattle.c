@@ -141,7 +141,7 @@ void sub_8053514(struct ProcEfxFarAttack * proc)
 
     if (GetBattleAnimArenaFlag() != 0)
     {
-        sub_805B034(gEkrBgPosition);
+        EkrArena_ChangeBg3Offset(gEkrBgPosition);
     }
 
     proc->timer++;
@@ -167,7 +167,7 @@ void sub_8053584(struct ProcEfxFarAttack * proc)
 
     if (GetBattleAnimArenaFlag() != 0)
     {
-        sub_805B034(gEkrBgPosition);
+        EkrArena_ChangeBg3Offset(gEkrBgPosition);
     }
 
     proc->timer++;

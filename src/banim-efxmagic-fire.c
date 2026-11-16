@@ -223,7 +223,7 @@ void EfxFireOBJ_Loop(struct ProcEfxOBJ * proc)
 
 struct ProcCmd CONST_DATA ProcScr_efxFireHITBG[] = {
     PROC_NAME("efxFireHITBG"),
-    PROC_REPEAT(sub_805DE74),
+    PROC_REPEAT(EfxFireHITBG_Loop),
     PROC_END,
 };
 
@@ -309,7 +309,7 @@ void StartSubSpell_efxFireHITBG(struct Anim * anim)
         BG_SetPosition(BG_1, 0xE8, 0x0);
 }
 
-void sub_805DE74(struct ProcEfxBG * proc)
+void EfxFireHITBG_Loop(struct ProcEfxBG * proc)
 {
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);

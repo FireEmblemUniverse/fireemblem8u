@@ -40,7 +40,7 @@ void EfxDracoZombiePrepareTSA(int x, int y, s8 pos)
 void EfxDracoZombiePrepareImg(struct ProcEkrDragon * proc)
 {
     Fill16_EkrTsaBuffer(0);
-    EfxTmFill(0);
+    EfxTmFillB(0);
     BG_Fill(gBG3TilemapBuffer, 0);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
     LZ77UnCompVram(Img_EfxDracoZombie, (void *)0x06008000);

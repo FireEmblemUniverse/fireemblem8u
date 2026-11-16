@@ -129,7 +129,7 @@ void EkrDK_PrepareBanimfx(struct ProcEkrDragon * proc)
 void PrepareDemonKingBGFx(struct ProcEkrDragon * proc)
 {
     Fill16_EkrTsaBuffer_(1);
-    EfxTmFill(0x60016001);
+    EfxTmFillB(0x60016001);
     BG_Fill(gBG3TilemapBuffer, 1);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
     Decompress(Img_DemonKingBG, (void *)0x06008000);
@@ -1048,7 +1048,7 @@ void EfxTmDecompress(int xtile, int ytile, const u16 *tsa)
     int x = xtile >> 3;
     int y = ytile >> 3;
 
-    EfxTmFill(0);
+    EfxTmFillB(0);
     LZ77UnCompWram(tsa, gEkrTsaBuffer);
 
     EfxTmCpyExtHFlip(gEkrTsaBuffer, -1,

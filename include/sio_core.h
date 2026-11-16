@@ -136,8 +136,8 @@ struct SioSt
 int SioPollingMsg(void);
 int GetSioIndex(void);
 void sub_80416E0(u16 arg_0, u16 sioCnt, u16 arg_2);
-void sub_8041718(void);
-void sub_8041898(void);
+void ResetSioSW(void);
+void SioInit_SW(void);
 void SioRegisterIrq(void);
 void SioReleaseIrq(void);
 void SioHandleIrq_Serial(void);

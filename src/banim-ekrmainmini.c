@@ -841,7 +841,7 @@ void EkrTerrainfx_PutTiles(struct EkrTerrainfxDesc * desc)
     u16 * tmA = TsaConfs_BanimTmA[desc->distance * 2 + 0];
     u16 * tmB = TsaConfs_BanimTmA[desc->distance * 2 + 1];
 
-    sub_80559B0(0);
+    EfxTmFillA(0);
 
     switch (desc->distance)
     {

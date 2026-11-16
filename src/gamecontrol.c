@@ -355,7 +355,7 @@ void GameControl_CallEraseSaveEventWithKeyCombo(ProcPtr proc)
 void GameControl_CallEraseMural(ProcPtr proc)
 {
     SetupBackgrounds(0);
-    sub_80156D4();
+    ApplySystemGraphics();
     gPlaySt.config.textSpeed = 1;
     StartMuralBackground(PROC_TREE_3, 0, -1);
 }
@@ -661,7 +661,7 @@ void sub_8009E54(ProcPtr proc)
 void CallGameEndingEvent(ProcPtr proc) {
     StartBattleMap(proc);
 
-    sub_80141B0();
+    Fade_CommonCallBack();
 
     switch (gPlaySt.chapterModeIndex) {
         case 2:

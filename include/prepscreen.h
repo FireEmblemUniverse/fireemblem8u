@@ -655,7 +655,7 @@ s8 sub_8097E38(struct Unit *unit);
 s8 CanUnitBeDeployedLinkArena(struct Unit *unit);
 s8 CheckValidLinkArenaItemSwap(struct Unit*, int, struct Unit*, int);
 s8 CheckValidLinkArenaItemSupply(struct Unit*, int, int);
-s8 sub_8097F98(struct Unit*, int);
+s8 PrepCanUnitPutItemToSupply(struct Unit*, int);
 void sub_8097FDC(void);
 int GetPrepPageForItem(int);
 void sub_8098048(int page);

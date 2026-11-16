@@ -715,12 +715,12 @@ void MapAnimTorch_Init(struct MAEffectProc * proc)
     ApplyPalette(Pal_MapAnimTorchfx, 0x10 + OBJPAL_MANIM_4);
 
     SetWhitePal(BGPAL_MANIM_4);
-    sub_8014930(
+    FillHalfwords(
         ((void *) VRAM) + GetBackgroundTileDataOffset(BG_2) + BGCHR_MANIM_160 * CHR_SIZE,
         CHR_SIZE / sizeof(u16),
         0xFFFF);
 
-    sub_8014930(
+    FillHalfwords(
         gBG2TilemapBuffer,
         ARRAY_COUNT(gBG2TilemapBuffer),
         TILEREF(BGCHR_MANIM_160, BGPAL_MANIM_4));

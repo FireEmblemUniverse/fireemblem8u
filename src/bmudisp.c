@@ -1359,7 +1359,7 @@ void sub_8027DB4(int layer, int x, int y, u16 oam2, int class, int idx)
     }
 }
 
-void sub_8027E4C(int layer, int x, int y, int oam2, struct Unit * unit)
+void PutUnitSpriteExt(int layer, int x, int y, int oam2, struct Unit * unit)
 {
     u32 id = GetUnitSMSId(unit);
     int chr = UseUnitSprite(id) + 0x80;

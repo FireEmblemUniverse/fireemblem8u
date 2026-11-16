@@ -32,7 +32,7 @@ PROC_LABEL(3),
     PROC_GOTO(0),
 PROC_LABEL(2),
     PROC_CALL(Set_0203DDDC),
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeToBlackWithCallBack_Speed20),
     PROC_YIELD,
     PROC_CALL(sub_80451F0),
     PROC_END,
@@ -1106,7 +1106,7 @@ void Tactician_Loop(struct ProcTactician * proc)
 }
 
 //! FE8U = 0x08044F84
-void sub_8044F84(void)
+void Tactician_HBlank(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
@@ -1132,7 +1132,7 @@ void sub_8044F84(void)
 void sub_8044FE4(struct ProcTactician * proc)
 {
     proc->unk3A = 0;
-    SetPrimaryHBlankHandler(sub_8044F84);
+    SetPrimaryHBlankHandler(Tactician_HBlank);
     return;
 }
 

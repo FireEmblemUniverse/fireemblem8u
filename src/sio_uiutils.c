@@ -729,7 +729,7 @@ void LATeamSpriteDraw_Loop(struct LATeamSpriteDrawProc * proc)
                 continue;
             }
 
-            sub_8027E4C(4, proc->xBase + j * 14, y, OAM2_LAYER(1), unit);
+            PutUnitSpriteExt(4, proc->xBase + j * 14, y, OAM2_LAYER(1), unit);
         }
     }
 

@@ -290,7 +290,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
 
         if (0 == proc->unk4C) {
             EfxTmCpyBG(gUnknown_08802274 + r8, &gBG0TilemapBuffer2D[r7][r9], 15, r6, -1, -1);
-            sub_8070D04(&gBG0TilemapBuffer2D[r7][r9], 15, r6, 2, 0x80);
+            ModifyBGRectTileRefs(&gBG0TilemapBuffer2D[r7][r9], 15, r6, 2, 0x80);
         }
 
         if (0 == proc->unk50) {
@@ -302,7 +302,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
                 ptr = gUnknown_08802428 + r8;
 
             EfxTmCpyBG(ptr, &gBG0TilemapBuffer2D[r7][spDC], 16, r6, -1, -1);
-            sub_8070D04(&gBG0TilemapBuffer2D[r7][spDC], 16, r6, 3, 128);
+            ModifyBGRectTileRefs(&gBG0TilemapBuffer2D[r7][spDC], 16, r6, 3, 128);
         }
 
         BG_EnableSyncByMask(1);

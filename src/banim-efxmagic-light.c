@@ -346,7 +346,7 @@ void StartSpellAnimPurge(struct Anim * anim)
 }
 
 //! FE8U = 0x0805FB24
-void sub_805FB24(int location, int type)
+void EfxPurge_PlaySFX(int location, int type)
 {
     if (gUnknown_02020044 & 1)
     {
@@ -380,19 +380,19 @@ void efxPurge_Loop_Main(struct ProcEfx * proc)
         NewEfxFlashBgWhite(anim, 4);
         StartSubSpell_efxPurgeBG(anim);
         StartSubSpell_efxPurgeOBJRND(anim);
-        sub_805FB24(0x30, 0);
+        EfxPurge_PlaySFX(0x30, 0);
         return;
     }
     else if (proc->timer == duration + 21)
     {
         NewEfxFlashBgWhite(anim, 4);
-        sub_805FB24(0xa0, 0);
+        EfxPurge_PlaySFX(0xa0, 0);
         return;
     }
     else if (proc->timer == duration + 41)
     {
         NewEfxFlashBgWhite(anim, 4);
-        sub_805FB24(0x70, 0);
+        EfxPurge_PlaySFX(0x70, 0);
         return;
     }
 
@@ -910,7 +910,7 @@ void efxPurgeOBJRND_Loop(struct ProcEfxOBJ * proc)
         y = gPurgeAnimSpriteCoordinates[proc->terminator * 2 + 1];
 
         StartSubSpell_efxPurgeOBJ(proc->anim2, x, y);
-        sub_805FB24(x, 1);
+        EfxPurge_PlaySFX(x, 1);
 
         if (++proc->terminator > proc->unk48)
         {

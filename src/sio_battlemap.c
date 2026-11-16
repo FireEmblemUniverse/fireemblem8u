@@ -433,7 +433,7 @@ void sub_80497A0(void)
 {
     SetupBackgrounds(NULL);
 
-    sub_80156D4();
+    ApplySystemGraphics();
 
     ApplyUnitSpritePalettes();
     ForceSyncUnitSpriteSheet();
@@ -2748,7 +2748,7 @@ void sub_804B76C(struct SioBattleMapProc * proc)
     gUnk_Sio_0203DD90.unk_2c[proc->unk_58].newScore = 30;
     gUnk_Sio_0203DD90.unk_2c[proc->unk_58].unitId = proc->unk_58 * 0x40 + proc->unk_5c + 1;
 
-    sub_804926C(proc);
+    StartSioPoints2(proc);
 
     proc->unk_5c++;
 
@@ -2894,7 +2894,7 @@ PROC_LABEL(7),
     PROC_CALL(sub_804A5A4),
     PROC_REPEAT(sub_804A614),
     PROC_REPEAT(sub_804A6A4),
-    PROC_CALL(sub_8049238),
+    PROC_CALL(StartSioPoints1),
     PROC_YIELD,
     PROC_CALL(EndLinkArenaPointsBox),
     PROC_REPEAT(sub_804A7C0),
@@ -2927,7 +2927,7 @@ PROC_LABEL(2),
     PROC_CALL(sub_804A5A4),
     PROC_REPEAT(sub_804A614),
     PROC_REPEAT(sub_804A6A4),
-    PROC_CALL(sub_8049238),
+    PROC_CALL(StartSioPoints1),
     PROC_YIELD,
     PROC_CALL(EndLinkArenaPointsBox),
     PROC_REPEAT(sub_804A7C0),
@@ -2962,7 +2962,7 @@ PROC_LABEL(4),
     PROC_CALL(sub_804A5A4),
     PROC_REPEAT(sub_804A614),
     PROC_REPEAT(sub_804A6A4),
-    PROC_CALL(sub_8049238),
+    PROC_CALL(StartSioPoints1),
     PROC_YIELD,
     PROC_CALL(EndLinkArenaPointsBox),
     PROC_REPEAT(sub_804A7C0),

@@ -63,7 +63,7 @@ void efxAlacalibur_Loop_Main(struct ProcEfx * proc)
         }
         else if (proc->timer == time + 6 + duration)
         {
-            sub_805ECD4(anim);
+            NewEfxAlacaliburBG(anim);
             sub_805ED98(anim);
             NewEfxALPHA(anim, 6, 5, 16, 0, 0);
             PlaySFX(0x109, 0x100, anim->xPosition, 1);
@@ -107,7 +107,7 @@ u16 * CONST_DATA TsaArray_AircaliburBg[] =
     Tsa_AircaliburBg_B,
 };
 
-void sub_805ECD4(struct Anim * anim)
+void NewEfxAlacaliburBG(struct Anim * anim)
 {
     // clang-format off
     static const u16 frames[] =

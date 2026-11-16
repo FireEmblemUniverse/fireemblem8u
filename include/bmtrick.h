@@ -65,7 +65,7 @@ struct Trap* RemoveTrap(struct Trap* trap);
 void AddFireTile(int x, int y, int turnCountdown, int turnInterval);
 void AddGasTrap(int x, int y, int facing, int turnCountdown, int turnInterval);
 void AddArrowTrap(int x, int turnCountdown, int turnInterval);
-void sub_802E36C(int x, int y, int turnCountdown, int turnInterval);
+void AddTimedMapChange(int x, int y, int turnCountdown, int turnInterval);
 void AddTrap8(int x, int y);
 void AddTrap9(int x, int y, int meta);
 void InitMapObstacles(void);

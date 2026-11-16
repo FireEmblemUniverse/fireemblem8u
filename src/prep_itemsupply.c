@@ -1057,7 +1057,7 @@ void PrepItemSupply_Loop_UnitInvKeyHandler(struct PrepItemSupplyProc * proc)
         }
 
         if (gKeyStatusPtr->newKeys & A_BUTTON) {
-            if (sub_8097F98(proc->unit, proc->unitInvIdx) == 0) {
+            if (PrepCanUnitPutItemToSupply(proc->unit, proc->unitInvIdx) == 0) {
                 StartPrepErrorHelpbox(-1, -1, 0x88B, proc); // TODO: msgid "If you have no usable[.][NL]weapons, you cannot attack.[.]"
                 return;
             }

@@ -162,7 +162,7 @@ void AddArrowTrap(int x, int turnCountdown, int turnInterval)
     AddDamagingTrap(x, 0, TRAP_LIGHTARROW, 0, turnCountdown, turnInterval, 10);
 }
 
-void sub_802E36C(int x, int y, int turnCountdown, int turnInterval)
+void AddTimedMapChange(int x, int y, int turnCountdown, int turnInterval)
 {
     AddDamagingTrap(x, y, TRAP_MAPCHANGE2, 0, turnCountdown, turnInterval, 0);
 }

@@ -456,7 +456,7 @@ void EventEngine_StartSkip(struct EventEngineProc* proc) {
 }
 
 void sub_800D488(struct EventEngineProc* unused) {
-    sub_80141B0(); // disables layers
+    Fade_CommonCallBack(); // disables layers
     Proc_EndEach(gProcScr_TalkOpen);
 }
 

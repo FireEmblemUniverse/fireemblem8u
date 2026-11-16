@@ -430,14 +430,14 @@ struct ManimShiftingSineWaveScanlineBufProc
 };
 
 //! FE8U = 0x080825B0
-void sub_80825B0(struct ManimShiftingSineWaveScanlineBufProc * proc)
+void ManimShiftingSineWaveScanlineBuf_Init(struct ManimShiftingSineWaveScanlineBufProc * proc)
 {
     proc->phase = 0;
     return;
 }
 
 //! FE8U = 0x080825B8
-void sub_80825B8(struct ManimShiftingSineWaveScanlineBufProc * proc)
+void ManimShiftingSineWaveScanlineBuf_Loop(struct ManimShiftingSineWaveScanlineBufProc * proc)
 {
     PrepareSineWaveScanlineBuf(gManimScanlineBufs[1] + DISPLAY_HEIGHT, proc->phase++, 0x10, 8);
     SwapScanlineBufs();

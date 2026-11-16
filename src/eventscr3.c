@@ -420,10 +420,10 @@ void sub_8012324(void)
     ResetDialogueScreen();
     SetupBackgrounds(NULL);
 
-    sub_80141B0();
+    Fade_CommonCallBack();
 
     InitSystemTextFont();
-    sub_80156D4();
+    ApplySystemGraphics();
 
     return;
 }
