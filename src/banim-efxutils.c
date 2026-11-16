@@ -737,7 +737,7 @@ void EkrsubAnimeEmulatorMain(struct ProcEkrSubAnimeEmulator * proc)
     }
 }
 
-const s16 gAnimSpriteRotScalePosX[] = {
+const s16 gAnimSpriteRotScalePosX[][4] = {
     0x08, 0x10, 0x20, 0x40,
     0x10, 0x20, 0x20, 0x40,
     0x08, 0x08, 0x10, 0x20,
@@ -746,23 +746,13 @@ const s16 gAnimSpriteRotScalePosX[] = {
 
 int GetAnimSpriteRotScaleX(u32 header)
 {
-    u32 a = header >> 30;
-    u32 b = header & 0xC000;
+    u32 size = header >> 30;
+    u32 shape = header & 0xC000;
 
-#if !NONMATCHING
-    const s16 * src = gAnimSpriteRotScalePosX;
-
-    a = a << 1;
-    b = b >> 11;
-    a = a + b;
-
-    return *(s16 *)((void *)src + a);
-#else
-    return gAnimSpriteRotScalePosX[a + (b >> 12)];
-#endif
+    return gAnimSpriteRotScalePosX[shape >> 14][size];
 }
 
-const s16 gAnimSpriteRotScalePosY[] = {
+const s16 gAnimSpriteRotScalePosY[][4] = {
     0x08, 0x10, 0x20, 0x40,
     0x08, 0x08, 0x10, 0x20,
     0x10, 0x20, 0x20, 0x40,
@@ -771,20 +761,10 @@ const s16 gAnimSpriteRotScalePosY[] = {
 
 int GetAnimSpriteRotScaleY(u32 header)
 {
-    u32 a = header >> 30;
-    u32 b = header & 0xC000;
+    u32 size = header >> 30;
+    u32 shape = header & 0xC000;
 
-#if !NONMATCHING
-    const s16 * src = gAnimSpriteRotScalePosY;
-
-    a = a << 1;
-    b = b >> 11;
-    a = a + b;
-
-    return *(s16 *)((void *)src + a);
-#else
-    return gAnimSpriteRotScalePosY[a + (b >> 12)];
-#endif
+    return gAnimSpriteRotScalePosY[shape >> 14][size];
 }
 
 void BanimUpdateSpriteRotScale(void * src, struct AnimSpriteData * out, s16 x, s16 y, int unused)
