@@ -493,7 +493,7 @@ LABEL(0x2)
     ENDA
 };
 
-/* I think used in dessert */
+/* I think used in desert */
 CONST_DATA EventListScr EventScr_GiveTreasureToLuckyDog[] = {
     CHECK_CLASS(CHAR_EVT_ACTIVE_UNIT)
 
@@ -509,7 +509,7 @@ CONST_DATA EventListScr EventScr_GiveTreasureToLuckyDog[] = {
 LABEL(0x0)
     CALL(EventScr_RemoveBGIfNeeded)
 
-    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    GIVE_ITEM(CHAR_EVT_ACTIVE_UNIT)
     SVAL(EVT_SLOT_C, true)
     GOTO(0x2)
 

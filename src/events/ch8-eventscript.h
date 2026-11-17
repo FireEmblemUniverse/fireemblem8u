@@ -316,8 +316,7 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     REMA
     MUSCSLOW(SONG_SILENT)
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x2710)
-    GIVEITEMTOMAIN(CHAR_EVT_PLAYER_LEADER)
+    GiveMoney(10000)
     SetBackground(BG_CASTLE_INTERIOR)
     MUSC(SONG_SORROW)
     TEXTSHOW(0xc0f)
