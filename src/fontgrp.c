@@ -784,7 +784,7 @@ void InitSystemTextFont(void)
 
 void InitTalkTextFont(void)
 {
-    ApplyPalette(Pal_Text + 0x10, gActiveFont->palid);
+    ApplyPalette(gUnknown_0859EF20, gActiveFont->palid);
     PAL_COLOR(gActiveFont->palid, 0) = 0;
 
     gActiveFont->drawGlyph = DrawTextGlyph;

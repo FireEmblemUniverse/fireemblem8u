@@ -45,8 +45,11 @@ gGfx_SubtitlePressStart:  @ 0x08AACEDC
 	.global gPal_PressStart
 gPal_PressStart:  @ 0x08AADB68
 	.incbin "graphics/titlescreen/title_press_start.gbapal"
+gPal_Copyright: @ 0x08aadb88
 	.incbin "graphics/titlescreen/title_copyright.gbapal"
+gPal_FireEmblemLogo: @ 0x08aadba8
 	.incbin "graphics/titlescreen/title_fire_emblem_logo.gbapal"
+gPal_SacredStoneBanner: @ 0x08aadbc8
 	.incbin "graphics/titlescreen/title_sacred_stones_banner.gbapal"
 
 	.global gPal_08AADBE8
@@ -126,7 +129,9 @@ gGfx_TitleLargeGlowingOrb:  @ 0x08AB1C24
 	.global gPal_TitleLargeGlowingOrb
 gPal_TitleLargeGlowingOrb:  @ 0x08AB210C
 	.incbin "graphics/titlescreen/title_large_glowing_orb.gbapal"
+gPal_TitleUnkPalette2:
 	.incbin "graphics/titlescreen/title_unk_palette_2.gbapal"
+gPal_TitleUnkPalette3:
 	.incbin "graphics/titlescreen/title_unk_palette_3.gbapal"
 
 	.global gGfx_TitleSmallLightBubbles
