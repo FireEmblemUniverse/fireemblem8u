@@ -424,18 +424,24 @@ bool MuExists(void)
 
 bool MuExistsActive(void)
 {
+    struct MuProc * mu;
     int i;
 
     for (i = 0; i < MU_MAX_COUNT; ++i)
     {
-#ifndef NONMATCHING
-        asm(""::"r"(&sMuConfig[i].slot));
-        asm(""::"r"(&sMuConfig[i].mu));
-#endif
-        if (sMuConfig[i].slot == 0) continue;
-        while (0) ;
-        if (sMuConfig[i].mu->state != MU_STATE_INACTIVE)
-            return true;
+        if (sMuConfig[i].slot != 0)
+        {
+            mu = sMuConfig[i].mu;
+
+            switch (mu->state)
+            {
+            case MU_STATE_INACTIVE:
+                continue;
+
+            default:
+                return true;
+            }
+        }
     }
 
     if (i >= MU_MAX_COUNT)

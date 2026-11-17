@@ -20,11 +20,6 @@ struct Struct8012F98 {
 int Interpolate(int method, int lo, int hi, int x, int x_max)
 {
     int deno, dx, base, ret;
-#ifndef NONMATCHING
-    register int _deno asm("r0");
-#else
-    int _deno;
-#endif
 
     if (0 == x_max)
         return hi;
@@ -38,8 +33,9 @@ int Interpolate(int method, int lo, int hi, int x, int x_max)
 
     case INTERPOLATE_SQUARE:
         // y = lo + (hi - lo)^2 * x^2 / xmax^2
-        _deno = x * x;
-        deno = _deno * (hi - lo);
+        ret = x * x;
+        dx = hi - lo;
+        deno = ret * dx;
         ret = lo + Div(deno, x_max * x_max);
         break;
 

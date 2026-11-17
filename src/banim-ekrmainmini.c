@@ -179,35 +179,27 @@ void EkrMainMini_C0D_ExecNextRoundAfterAttack(struct Anim * anim)
 {
     struct EkrMainMiniDesc * desc = anim->pUnk44;
     struct BattleAnim * banim = banim_data;
-    void * pool;
 
     if (GetAISLayerId(anim) == 0)
     {
         int mode = BanimDefaultModeConfig[0x18];
-        int * whoKnows = banim[desc->bid].modes;
-
+        const int * banim_mode = banim[desc->bid].modes;
         struct Anim * anim1 = desc->anim1;
         struct Anim * anim2 = desc->anim2;
+        const u8 * ptr = desc->scr_buf;
+        struct BanimModeData * scr;
+        int offset;
 
-        const void * unk28 = desc->scr_buf;
-#ifndef NONMATCHING
-        register struct BanimModeData * frameData asm("r1") = (void *)unk28 + whoKnows[mode];
-        register u32 r1 asm("r1");
+        offset = banim_mode[mode];
+        scr = (void *)(ptr + offset);
+        anim1->pImgSheet = scr->img;
 
-        anim1->pImgSheet = frameData->img;
-        unk28 = anim1->pSpriteDataPool;
-        anim1->pSpriteData = unk28 += r1 = frameData->unk2;
+        ptr = anim1->pSpriteDataPool;
+        offset = scr->unk2;
+        anim1->pSpriteData = ptr += offset;
 
-        unk28 = anim2->pSpriteDataPool;
-        anim2->pSpriteData = unk28 += 0x000057F0;
-#else
-        struct BanimModeData * frameData = (void *)unk28 + whoKnows[mode];
-
-        anim1->pImgSheet = frameData->img;
-        anim1->pSpriteData = anim1->pSpriteDataPool + frameData->unk2;
-
-        anim2->pSpriteData = anim2->pSpriteDataPool + 0x000057F0;
-#endif
+        ptr = anim2->pSpriteDataPool;
+        anim2->pSpriteData = ptr += 0x000057F0;
 
         if (desc->img_sheet != anim->pImgSheet)
         {
@@ -215,8 +207,6 @@ void EkrMainMini_C0D_ExecNextRoundAfterAttack(struct Anim * anim)
             desc->img_sheet = anim->pImgSheet;
         }
     }
-
-    return;
 }
 
 //! FE8U = 0x0805A60C
