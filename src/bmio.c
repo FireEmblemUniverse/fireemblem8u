@@ -977,7 +977,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     SetInterrupt_LCDVBlank(OnVBlank);
 
     ClearBattleMapState();
-    sub_80156D4();
+    ApplySystemGraphics();
     ApplyUnitSpritePalettes();
     ResetChapterFlags();
     ResetUnitSprites();
@@ -1043,7 +1043,7 @@ void RestartBattleMap(void) {
     SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
-    sub_80156D4();
+    ApplySystemGraphics();
     ApplyUnitSpritePalettes();
     ResetUnitSprites();
 

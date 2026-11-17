@@ -460,7 +460,7 @@ void ParseBattleHitToBanimCmd(void)
         }
         else
         {
-            switch (sub_80716B0(2)) {
+            switch (BanimSpawnRandB(2)) {
             case 0:
                 *r5 = gUnknown_080DAED2[distance_r4];
                 break;

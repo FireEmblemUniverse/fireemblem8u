@@ -545,7 +545,7 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                     gBanimExpGain[1] = 0;
                     ret = 1;
                 } else if (proc->speedup == true) {
-                    sub_805B094();
+                    StopArenaBgmWhenSpeedUp();
                     ArenaSetResult(4);
                     gBanimExpGain[1] = 0;
                     ret = 1;

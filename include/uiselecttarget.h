@@ -67,8 +67,8 @@ ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, u8(*
 ProcPtr EndTargetSelection(struct SelectTargetProc* proc);
 void TargetSelection_HandleMoveInput(struct SelectTargetProc* proc);
 int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc);
-void sub_804FBBC(void);
-void sub_804FBDC(void);
+void FreezeMapSelect(void);
+void ResumeMapSelect(void);
 int GetFurthestTargetDistance(void);
 struct SelectTarget* GetLinkedTargetsNear(void);
 struct SelectTarget* GetLinkedTargetsFar(void);

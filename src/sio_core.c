@@ -130,7 +130,7 @@ void sub_80416E0(u16 arg_0, u16 sioCnt, u16 arg_2)
     sSioCnt = sioCnt;
 }
 
-void sub_8041718(void)
+void ResetSioSW(void)
 {
     int j, i;
 
@@ -203,7 +203,7 @@ void sub_8041718(void)
     }
 }
 
-void sub_8041898(void)
+void SioInit_SW(void)
 {
     int i;
 
@@ -223,7 +223,7 @@ void sub_8041898(void)
 
     sub_80416E0(0x6584, 3, 0x88);
     sub_8042980(0);
-    sub_8041718();
+    ResetSioSW();
 
     sUnknown_030017EC = 0;
 }
@@ -1218,7 +1218,7 @@ void sub_8042B08(struct SioBigSendProc * proc)
 
     gSioSt->seq[0] = gSioSt->seq[1] = gSioSt->seq[2] = gSioSt->seq[3] = 0;
 
-    sub_8041718();
+    ResetSioSW();
 
     data[0] = proc->unk_34;
     data[1] = proc->blockCount >> 8;
@@ -1259,7 +1259,7 @@ void sub_8042BD8(struct SioBigReceiveProc * proc)
 
     gSioSt->seq[0] = gSioSt->seq[1] = gSioSt->seq[2] = gSioSt->seq[3] = 0;
 
-    sub_8041718();
+    ResetSioSW();
 }
 
 void sub_8042C00(struct SioBigReceiveProc * proc)

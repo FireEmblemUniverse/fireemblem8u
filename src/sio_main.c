@@ -35,7 +35,7 @@ struct ProcCmd CONST_DATA ProcScr_SIOCON[] = {
 void SioInit(void)
 {
     SioRegisterIrq();
-    sub_8041898();
+    SioInit_SW();
 
     gSioSt->unk_001 = 1;
     gSioSt->unk_004 = 0;

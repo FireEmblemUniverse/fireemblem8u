@@ -126,7 +126,7 @@ void ArenaUi_Init(ProcPtr proc) {
 }
 
 //! FE8U = 0x080B5970
-void sub_80B5970(void) {
+void ArenaUi_BmEnd(void) {
     UpdateUnitFromBattle(gArenaState.playerUnit, &gBattleActor);
     StartMu(gActiveUnit);
     SetAutoMuDefaultFacing();
@@ -227,7 +227,7 @@ void ArenaUi_StartArenaBattle(ProcPtr proc) {
 }
 
 //! FE8U = 0x080B5B00
-void sub_80B5B00(ProcPtr proc) {
+void _StartPartialGameLock(ProcPtr proc) {
     StartPartialGameLock(proc);
     return;
 }
@@ -423,7 +423,7 @@ struct ProcCmd CONST_DATA gProcScr_ArenaUiMain[] = {
 
 PROC_LABEL(0),
     PROC_CALL_ARG(_FadeBgmOut, 2),
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeToBlackWithCallBack_Speed20),
     PROC_SLEEP(1),
 
     PROC_CALL(ArenaUi_StartArenaBattle),
@@ -437,7 +437,7 @@ PROC_LABEL(0),
 PROC_LABEL(2),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeToBlackWithCallBack_Speed20),
     PROC_SLEEP(1),
 
     PROC_CALL(ArenaUi_OnEnd),
@@ -458,7 +458,7 @@ PROC_LABEL(2),
 
 struct ProcCmd CONST_DATA gProcScr_ArenaUiResults[] = {
 PROC_LABEL(1),
-    PROC_CALL(sub_80B5B00),
+    PROC_CALL(_StartPartialGameLock),
 
     PROC_CALL(LockGame),
     PROC_CALL(BMapDispSuspend),
@@ -484,10 +484,10 @@ PROC_LABEL(2),
     PROC_SLEEP(0),
 
     PROC_CALL_ARG(_FadeBgmOut, 2),
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeToBlackWithCallBack_Speed20),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80B5970),
+    PROC_CALL(ArenaUi_BmEnd),
 
     PROC_CALL(ArenaUi_OnEnd),
 

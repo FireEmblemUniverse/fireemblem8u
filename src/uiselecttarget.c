@@ -248,14 +248,14 @@ int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc) {
     return ret;
 }
 
-void sub_804FBBC(void) {
+void FreezeMapSelect(void) {
     struct SelectTargetProc * proc = Proc_Find(gProcScr_TargetSelection);
     if (proc) {
         proc->flags |= TARGETSELECTION_FLAG_FROZEN;
     }
 }
 
-void sub_804FBDC(void) {
+void ResumeMapSelect(void) {
     struct SelectTargetProc * proc = Proc_Find(gProcScr_TargetSelection);
     if (proc) {
         proc->flags &= ~TARGETSELECTION_FLAG_FROZEN;

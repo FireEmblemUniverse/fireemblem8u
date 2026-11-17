@@ -59,7 +59,7 @@ void StartBattleAnimHitEffectsDefault(struct Anim *anim, int type)
     StartBattleAnimHitEffects(anim, type, 3, 4);
 }
 
-void sub_8055288(struct Anim *anim, int type)
+void StartBattleAnimHitEffectsAlt(struct Anim *anim, int type)
 {
     StartBattleAnimHitEffects(anim, type, 5, 5);
 }
@@ -275,7 +275,7 @@ struct Anim * EfxCreateBackAnim(struct Anim * anim, const u32 * scr1, const u32 
     }
 }
 
-void sub_805560C(struct Anim * anim, const u16 * src1, const u16 * src2)
+void SpellFx_WriteBgMapUncomp(struct Anim * anim, const u16 * src1, const u16 * src2)
 {
     const u16 * buf;
 
@@ -456,7 +456,7 @@ s16 EfxAdvanceFrameLut(s16 *ptime, s16 *pcount, const s16 lut[])
     }
 }
 
-void sub_8055980(void)
+void RaiseEkrMiniAnimLayer(void)
 {
     gUnknown_0201775C = true;
 }
@@ -471,13 +471,13 @@ int EfxGetCamMovDuration(void)
         return 0x0;
 }
 
-void sub_80559B0(u32 val)
+void EfxTmFillA(u32 val)
 {
     u16 * dst = gTmA_Banim;
     CpuFill32(val, dst, sizeof(gTmA_Banim));
 }
 
-void EfxTmFill(u32 val)
+void EfxTmFillB(u32 val)
 {
     u16 * dst = gTmB_Banim;
     CpuFill32(val, dst, sizeof(gTmB_Banim));

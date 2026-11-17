@@ -95,7 +95,7 @@ CONST_DATA short gUnknown_0875879C[0x140] = {
     15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
 };
 
-void sub_8070D04(u16 * tm, u16 width, u16 height, int pal, int chr)
+void ModifyBGRectTileRefs(u16 * tm, u16 width, u16 height, int pal, int chr)
 {
     int i, j;
     u16 tileref, len;
@@ -651,7 +651,7 @@ void EfxChapterMapFadeOUT(int speed)
     EnablePaletteSync();
 }
 
-int sub_80716B0(int a)
+int BanimSpawnRandB(int a)
 {
     return DivRem(AdvanceGetLCGRNValue(), a + 1);
 }

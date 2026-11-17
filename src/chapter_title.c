@@ -65,13 +65,13 @@ void PutChapterTitleBG(int chr)
 
 extern u8 gUnknown_08A0A4E8[];
 
-void sub_80896A8(int chr)
+void PutChapterTitleBG1(int chr)
 {
     gChapterTitleFxSt.chr_bg = chr & 0x3FF;
     Decompress(gUnknown_08A0A4E8, (void*)((chr * TILE_SIZE_4BPP) + VRAM));
 }
 
-void sub_80896D8(u16 * tm, int pal)
+void PutChapterTitleTextTSA(u16 * tm, int pal)
 {
     int i;
     int tile = TILEREF(gChapterTitleFxSt.chr_str, pal);
@@ -87,7 +87,7 @@ void sub_80896FC(u16 * tm, int pal, int c)
         *tm++ = tile++;
 }
 
-void sub_8089720(u16 * tm, int pal)
+void PutChapterTitleBgTSA(u16 * tm, int pal)
 {
     int i;
     int tile = TILEREF(gChapterTitleFxSt.chr_bg, pal);
@@ -95,7 +95,7 @@ void sub_8089720(u16 * tm, int pal)
         *tm++ = tile++;
 }
 
-void sub_8089744(u16 * tm, int pal)
+void PutChapterTitleBgDefaultTSA(u16 * tm, int pal)
 {
     CallARM_FillTileRect(tm, gTsa_08A0A9F8, (u16)TILEREF(gChapterTitleFxSt.chr_bg, pal));
 }

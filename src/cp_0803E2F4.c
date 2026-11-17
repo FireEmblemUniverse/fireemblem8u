@@ -22,12 +22,12 @@ u8 EWRAM_DATA gUnknown_0203AAA0 = 0;
 void AiFillDangerMap(void);
 s8 AiUpdateGetUnitIsHealing(struct Unit*);
 const struct AiEscapePt* GetEscapePointStructThingMaybe(void);
-void sub_803EC18(u16);
+void AiUpdateUnitFlagsFromStaff(u16);
 s8 AiIsWithinFlyingDistance(struct Unit*, int, int);
 int StoreItemAndGetUnitAttack(struct Unit*, u16*);
 s8 AiTryDoDanceAdjacent(int, int);
 s8 AiTryDoStealAdjacent(int, int);
-s8 sub_803EEB0(int, int);
+s8 AiTryCombatAt(int, int);
 
 
 //! FE8U = 0x0803E2F4
@@ -400,7 +400,7 @@ s8 AiEquipGetFlags(u16 * out)
         }
         else
         {
-            sub_803EC18(item);
+            AiUpdateUnitFlagsFromStaff(item);
             out[i] |= 8;
         }
 
@@ -508,7 +508,7 @@ void AiEquipBestConsideringDanger(u16 range_danger, u16 melee_danger, u16 combin
 }
 
 //! FE8U = 0x0803EC18
-void sub_803EC18(u16 item) {
+void AiUpdateUnitFlagsFromStaff(u16 item) {
     switch (GetItemIndex(item)) {
         case ITEM_STAFF_HEAL:
         case ITEM_STAFF_MEND:
@@ -572,7 +572,7 @@ void AiTryActionAfterMove(void) {
         return;
     }
 
-    sub_803EEB0(gAiDecision.xMove, gAiDecision.yMove);
+    AiTryCombatAt(gAiDecision.xMove, gAiDecision.yMove);
 
     return;
 }
@@ -649,7 +649,7 @@ s8 AiTryDoStealAdjacent(int x, int y) {
 }
 
 //! FE8U = 0x0803EEB0
-s8 sub_803EEB0(int x, int y) {
+s8 AiTryCombatAt(int x, int y) {
     int ix;
     int iy;
 
@@ -765,7 +765,7 @@ struct Unknown_Sub80315C {
 };
 
 //! FE8U = 0x0803F15C
-s8 sub_803F15C(const struct Unknown_Sub80315C* input) {
+s8 AiFunc_MoveTowardsPointAttacking(const struct Unknown_Sub80315C* input) {
     u16 item;
     int ix;
     int iy;
@@ -850,7 +850,7 @@ s8 sub_803F15C(const struct Unknown_Sub80315C* input) {
 }
 
 //! FE8U = 0x0803F330
-s8 sub_803F330(const void* input) {
+s8 AiFunc_GetCounter(const void* input) {
     gAiState.cmd_result[0] = gActiveUnit->ai_counter;
     return 0;
 }

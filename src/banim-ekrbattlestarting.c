@@ -49,7 +49,7 @@ void BeginAnimsOnBattleAnimations(void)
     gUnknown_02000010[0] = NULL;
     gUnknown_02000010[1] = NULL;
 
-    SetMainUpdateRoutine(MainUpdate_8055C68);
+    SetMainUpdateRoutine(OnMainBas);
     SetPrimaryHBlankHandler(NULL);
 }
 
@@ -66,10 +66,10 @@ void EkrMainEndExec(void)
     }
 
     NewEkrbattleending();
-    SetMainUpdateRoutine(MainUpdate_8055C68);
+    SetMainUpdateRoutine(OnMainBas);
 }
 
-void MainUpdate_8055C68(void)
+void OnMainBas(void)
 {
     UpdateKeyStatus(gKeyStatusPtr);
     ClearSprites();

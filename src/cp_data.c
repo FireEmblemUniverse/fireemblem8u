@@ -1294,7 +1294,7 @@ struct AiScr CONST_DATA gAiScript_DoNothing[] = {
 // unused
 struct AiScr CONST_DATA gAiScript_085A8950[] = {
     AI_ACTION(100),
-    AI_CALL_FUNC(sub_803F330, NULL),
+    AI_CALL_FUNC(AiFunc_GetCounter, NULL),
     AI_GOTO_IFGT(0x1, gAiState.cmd_result+0, 0x0),
     AI_GOTO_START,
 AI_LABEL(0x1),

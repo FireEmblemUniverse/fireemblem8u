@@ -1500,7 +1500,7 @@ void StatScreen_InitDisplay(struct Proc* proc)
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    sub_80156D4();
+    ApplySystemGraphics();
     ApplyUnitSpritePalettes();
 
     SetWinEnable(TRUE, FALSE, FALSE);

@@ -1260,7 +1260,7 @@ void PrepScreenProc_HideEverythingAndUnlockGame(void)
     UnlockGame();
     BMapDispResume();
 
-    sub_80141B0(); // disables layers
+    Fade_CommonCallBack(); // disables layers
 
     return;
 }

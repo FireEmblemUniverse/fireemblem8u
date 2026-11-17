@@ -590,7 +590,7 @@ void TerrainDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 }
 
 //! FE8U = 0x0808C234
-void sub_808C234(struct PlayerInterfaceProc * proc)
+void PutUnitMapUi(struct PlayerInterfaceProc * proc)
 {
     int x;
     int y;
@@ -620,7 +620,7 @@ void sub_808C234(struct PlayerInterfaceProc * proc)
 }
 
 //! FE8U = 0x0808C288
-void sub_808C288(struct PlayerInterfaceProc * proc)
+void PutTerrainMapUi(struct PlayerInterfaceProc * proc)
 {
     int x;
 
@@ -1167,7 +1167,7 @@ void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
               sPlayerInterfaceConfigLut[proc->cursorQuadrant].yTerrain)))
         {
             DrawTerrainDisplayWindow(proc);
-            sub_808C288(proc);
+            PutTerrainMapUi(proc);
             return;
         }
     }
@@ -1244,7 +1244,7 @@ void MMB_Loop_Display(struct PlayerInterfaceProc * proc)
 
     if ((proc->unitClock & 63) == 0)
     {
-        sub_808C234(proc);
+        PutUnitMapUi(proc);
     }
 
     proc->xCursorPrev = proc->xCursor;
@@ -1292,7 +1292,7 @@ void MMB_CheckForUnit(struct PlayerInterfaceProc * proc)
     else
     {
         DrawUnitMapUi(proc, unit);
-        sub_808C234(proc);
+        PutUnitMapUi(proc);
     }
 
     return;

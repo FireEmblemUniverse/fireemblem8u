@@ -142,12 +142,12 @@ struct Unknown_02013460
 
 
 void sub_809014C(void);
-void sub_80901BC(u8 x, u8 y, u8 width);
-void sub_8090238(u8 key);
-void sub_8090324(int unk);
-void sub_8090358(u16 arg_0);
-void sub_8090418(struct UnitListScreenProc * proc, s8 unk);
-void sub_8090514(s8 flag);
+void UnitList_PutBoxSprites(u8 x, u8 y, u8 width);
+void UnitList_PutSortKeyLabel(u8 key);
+void UnitList_TrackItemIcon(int unk);
+void UnitList_ClearOffscreenItemIcons(u16 arg_0);
+void UnitList_MoveCursorToLastSelectedUnit(struct UnitListScreenProc * proc, s8 unk);
+void UnitList_SetupWindows(s8 flag);
 void UnitList_StartStatScreen(struct UnitListScreenProc * proc);
 void UnitList_ResetFromStatScreen(struct UnitListScreenProc * proc);
 void UnitList_ResetDispFromStatScreen(void);
@@ -157,7 +157,7 @@ void UnitListScreenSprites_Dummy(void);
 void sub_8090B48(struct Unit * unit, struct UnitListScreenProc * proc);
 void sub_8090C58(struct UnitListScreenProc * proc);
 void sub_8090D00(struct UnitListScreenProc * proc);
-void sub_8090D80(struct UnitListScreenProc * proc);
+void UnitList_Setup(struct UnitListScreenProc * proc);
 void UnitList_Init(struct UnitListScreenProc * proc);
 void UnitList_DeployUnit(struct Unit * unit, struct UnitListScreenProc * proc);
 void UnitList_UndeployUnit(struct Unit * unit, struct UnitListScreenProc * proc);
@@ -169,8 +169,8 @@ void UnitList_SetBlendEffects(void);
 void sub_8091AEC(struct UnitListScreenProc * proc);
 void UnitList_OnEnd(struct UnitListScreenProc * proc);
 void UnitList_StartPageChange(struct UnitListScreenProc * proc);
-void sub_8091D54(struct UnitListScreenProc * proc);
-void sub_8091F10(struct UnitListScreenProc * proc);
+void UnitList_PageSlideOut_Loop(struct UnitListScreenProc * proc);
+void UnitList_PageSlideIn_Loop(struct UnitListScreenProc * proc);
 void StartUnitListScreenField(void);
 void StartUnitListScreenPrepMenu(ProcPtr parent);
 void StartUnitListScreenForSoloAnim(ProcPtr parent);

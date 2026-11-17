@@ -46,7 +46,7 @@ struct LATeamListConfig
 
 int sub_80437C0(u8, struct SioTeamListProc *);
 bool CanBuildNewLinkArenaTeam(void);
-bool sub_8043394(void);
+bool HasAnyLinkArenaTeam(void);
 
 enum
 {
@@ -81,7 +81,7 @@ struct LATeamListConfig CONST_DATA gSioTeamListConfig_1[] =
         .unk_04 = 0,
         .unk_05 = 1,
         .menuTextId = MSG_767, // Unit List"
-        .isValidFunc = sub_8043394,
+        .isValidFunc = HasAnyLinkArenaTeam,
     },
     [2] =
     {
@@ -99,7 +99,7 @@ struct LATeamListConfig CONST_DATA gSioTeamListConfig_1[] =
         .unk_04 = 0,
         .unk_05 = 1,
         .menuTextId = MSG_769, // "Disband"
-        .isValidFunc = sub_8043394,
+        .isValidFunc = HasAnyLinkArenaTeam,
     },
     [4] =
     {
@@ -216,7 +216,7 @@ bool CanBuildNewLinkArenaTeam(void)
 }
 
 //! FE8U = 0x08043394
-bool sub_8043394(void)
+bool HasAnyLinkArenaTeam(void)
 {
     int i;
 
@@ -232,7 +232,7 @@ bool sub_8043394(void)
 }
 
 //! FE8U = 0x080433C0
-int sub_80433C0(int activeOption, u8 mode)
+int GetSioTeams(int activeOption, u8 mode)
 {
     int i;
     int count = 0;
@@ -302,7 +302,7 @@ void DrawLinkArenaTeamName(int idx)
 }
 
 //! FE8U = 0x0804352C
-void sub_804352C(struct SioTeamListProc * proc)
+void DrawAllLinkArenaTeams(struct SioTeamListProc * proc)
 {
     int i;
 
@@ -360,7 +360,7 @@ void SioTeamList_EraseTeam(struct SioTeamListProc * proc)
     gLinkArenaTeamList[team].unk_0f = team | 0x80;
     DrawLinkArenaTeamName(team);
 
-    if (!sub_8043394())
+    if (!HasAnyLinkArenaTeam())
     {
         sub_80437C0(gLinkArenaSt.unk_00, proc);
         Proc_Goto(proc, 2);
@@ -528,7 +528,7 @@ void SioTeamList_SetupGfx(struct SioTeamListProc * proc)
     ResetUnitSprites();
     ForceSyncUnitSpriteSheet();
 
-    proc->unk_38 = sub_80433C0(proc->optionIdx, gLinkArenaSt.unk_00);
+    proc->unk_38 = GetSioTeams(proc->optionIdx, gLinkArenaSt.unk_00);
 
     for (i = 0; i < 5; i++)
     {
@@ -539,7 +539,7 @@ void SioTeamList_SetupGfx(struct SioTeamListProc * proc)
 
     proc->numActiveOptions = sub_80437C0(gLinkArenaSt.unk_00, proc);
 
-    sub_804352C(proc);
+    DrawAllLinkArenaTeams(proc);
 
     proc->unk_2c = sub_804CAEC(proc, proc->numActiveOptions, buf);
 
@@ -727,7 +727,7 @@ int sub_8043D5C(void)
 }
 
 //! FE8U = 0x08043D8C
-void SioTeamList_8043D8C(struct SioTeamListProc * proc)
+void SioTeamList_Loop_SubSel(struct SioTeamListProc * proc)
 {
     int unk_40 = proc->unk_40;
     struct SioProc85AAA78 * unk_2C = proc->unk_2c;
@@ -1005,7 +1005,7 @@ void sub_8044280(struct SioProc85AAA78 * proc, s8 b)
 }
 
 //! FE8U = 0x0804429C
-void SioTeamList_804429C(struct SioTeamListProc * proc)
+void SioTeamList_SubSel_Switching(struct SioTeamListProc * proc)
 {
     struct SioProc85AAA78 * unk_2C = proc->unk_2c;
 
@@ -1192,14 +1192,14 @@ PROC_LABEL(2),
     // fallthrough
 
 PROC_LABEL(3),
-    PROC_REPEAT(SioTeamList_8043D8C),
+    PROC_REPEAT(SioTeamList_Loop_SubSel),
 
     PROC_GOTO(9),
 
 PROC_LABEL(4),
     PROC_CALL(Set_0203DDDC),
 
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeToBlackWithCallBack_Speed20),
     PROC_YIELD,
 
     PROC_CALL(SioTeamList_StartUnitList),
@@ -1216,7 +1216,7 @@ PROC_LABEL(4),
     PROC_GOTO(2),
 
 PROC_LABEL(5),
-    PROC_REPEAT(SioTeamList_804429C),
+    PROC_REPEAT(SioTeamList_SubSel_Switching),
 
     // fallthrough
 
@@ -1234,7 +1234,7 @@ PROC_LABEL(7),
 PROC_LABEL(8), /* Label for the Battle Password logic in FE6 */
     PROC_CALL(Set_0203DDDC),
 
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeToBlackWithCallBack_Speed20),
     PROC_YIELD,
 
     PROC_CALL(SioTeamList_LoadTeam_Dummy),
@@ -1247,7 +1247,7 @@ PROC_LABEL(9),
 
     PROC_CALL(Set_0203DDDC),
 
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeToBlackWithCallBack_Speed20),
     PROC_YIELD,
 
     PROC_END,

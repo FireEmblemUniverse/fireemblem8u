@@ -148,9 +148,9 @@ void sub_80469C4(struct SioTermProc * proc)
 
         sub_80895B4(flags[i] | 1, i + 4);
         sub_80895B4(flags[i], i + 7);
-        sub_8089720(TILEMAP_LOCATED(gBG1TilemapBuffer, 3, (3 + i * permuter) + 1), i + 4);
+        PutChapterTitleBgTSA(TILEMAP_LOCATED(gBG1TilemapBuffer, 3, (3 + i * permuter) + 1), i + 4);
         PutChapterTitleGfx(((0x800 * (u32)i + 0x4400) & 0x1FFFF) / 0x20, proc->unk_2c[i]);
-        sub_80896D8(TILEMAP_LOCATED(gBG0TilemapBuffer, 3, (3 + i * permuter) + 2), i + 7);
+        PutChapterTitleTextTSA(TILEMAP_LOCATED(gBG0TilemapBuffer, 3, (3 + i * permuter) + 2), i + 7);
     }
 
     SetWinEnable(0, 0, 0);
@@ -279,7 +279,7 @@ void sub_8046E0C(ProcPtr proc)
         return;
     }
 
-    sub_804309C();
+    ClearSioAllBGs();
     nullsub_13();
     sub_804C4F8();
     sub_804C590();

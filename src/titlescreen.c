@@ -967,7 +967,7 @@ PROC_LABEL(1),
     // fallthrough
 
 PROC_LABEL(2),
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeToBlackWithCallBack_Speed20),
     PROC_YIELD,
     PROC_CALL(Title_EndAllProcChildren),
     PROC_GOTO(5),

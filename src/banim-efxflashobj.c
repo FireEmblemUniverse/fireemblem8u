@@ -10,8 +10,8 @@
 CONST_DATA struct ProcCmd ProcScr_efxWeaponIcon[] = {
     PROC_NAME("efxWeaponIcon"),
     PROC_MARK(PROC_MARK_EFX_BGCOL),
-    PROC_SET_END_CB(sub_8054F78),
-    PROC_REPEAT(sub_8054F10),
+    PROC_SET_END_CB(EfxWeaponIcon_End),
+    PROC_REPEAT(EfxWeaponIcon_Loop),
     PROC_END
 };
 
@@ -74,7 +74,7 @@ void EnableEfxWeaponIcon(void)
     gpProcEfxWeaponIcon->invalid = false;
 }
 
-void sub_8054F10(struct ProcEfxWeaponIcon *proc)
+void EfxWeaponIcon_Loop(struct ProcEfxWeaponIcon *proc)
 {
     int ret;
 
@@ -99,7 +99,7 @@ void sub_8054F10(struct ProcEfxWeaponIcon *proc)
     EnablePaletteSync();
 }
 
-void sub_8054F78(struct ProcEfxWeaponIcon *proc)
+void EfxWeaponIcon_End(struct ProcEfxWeaponIcon *proc)
 {
     ResetIconGraphics_();
 

@@ -815,7 +815,7 @@ void ChapterIntro_8020AF8(void)
 {
     SetupBackgrounds(NULL);
 
-    sub_80156D4();
+    ApplySystemGraphics();
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
 
     RefreshUnitSprites();
@@ -1140,7 +1140,7 @@ void ChapterIntro_End(void)
     if (GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH || GetROMChapterStruct(gPlaySt.chapterIndex)->fadeToBlack)
     {
         RefreshBMapGraphics();
-        sub_80141B0();
+        Fade_CommonCallBack();
     }
 
     return;

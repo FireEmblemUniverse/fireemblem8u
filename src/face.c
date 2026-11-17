@@ -564,8 +564,8 @@ void PutFaceTm(u16 * tm, u8* data, int tileref, s8 isFlipped) {
 //! FE8U = 0x08005924
 void UnpackFaceChibiGraphics(int fid, int chr, int pal) {
     if (fid >= FID_FACTION_CHIBI) {
-        RegisterDataMove(sub_8005F6C(fid), (void *)(((chr * CHR_SIZE + VRAM) & 0x1FFFF) + VRAM), 0x200);
-        sub_8005F9C(fid, pal);
+        RegisterDataMove(GetFactionFaceImg(fid), (void *)(((chr * CHR_SIZE + VRAM) & 0x1FFFF) + VRAM), 0x200);
+        ApplyFactionFacePal(fid, pal);
     } else {
         const struct FaceData* info = GetPortraitData(fid);
 
@@ -592,12 +592,12 @@ void UnpackFaceChibiSprGraphics(int fid, int chr, int pal) {
     chr += 0x800;
 
     if (fid >= FID_FACTION_CHIBI) {
-        RegisterDataMove(sub_8005F6C(fid) + 0x00, (void *)(((chr + 0x00) * 0x20 & 0x1FFFF) + VRAM), 0x80);
-        RegisterDataMove(sub_8005F6C(fid) + 0x80, (void *)(((chr + 0x20) * 0x20 & 0x1FFFF) + VRAM), 0x80);
-        RegisterDataMove(sub_8005F6C(fid) + 0x100, (void *)(((chr + 0x04) * 0x20 & 0x1FFFF) + VRAM), 0x80);
-        RegisterDataMove(sub_8005F6C(fid) + 0x180, (void *)(((chr + 0x24) * 0x20 & 0x1FFFF) + VRAM), 0x80);
+        RegisterDataMove(GetFactionFaceImg(fid) + 0x00, (void *)(((chr + 0x00) * 0x20 & 0x1FFFF) + VRAM), 0x80);
+        RegisterDataMove(GetFactionFaceImg(fid) + 0x80, (void *)(((chr + 0x20) * 0x20 & 0x1FFFF) + VRAM), 0x80);
+        RegisterDataMove(GetFactionFaceImg(fid) + 0x100, (void *)(((chr + 0x04) * 0x20 & 0x1FFFF) + VRAM), 0x80);
+        RegisterDataMove(GetFactionFaceImg(fid) + 0x180, (void *)(((chr + 0x24) * 0x20 & 0x1FFFF) + VRAM), 0x80);
 
-        sub_8005F9C(fid, pal + 0x10);
+        ApplyFactionFacePal(fid, pal + 0x10);
     } else {
         const struct FaceData* info = GetPortraitData(fid);
 
@@ -889,7 +889,7 @@ void StartFaceFadeOut(struct FaceProc* proc) {
 }
 
 //! FE8U = 0x08005F6C
-u8* sub_8005F6C(int fid) {
+u8* GetFactionFaceImg(int fid) {
 
     // generic minimug image lut
     u8* gUnknown_080D77BC[] = {
@@ -909,7 +909,7 @@ u8* sub_8005F6C(int fid) {
 }
 
 //! FE8U = 0x08005F9C
-void sub_8005F9C(int fid, int pal) {
+void ApplyFactionFacePal(int fid, int pal) {
 
     // generic minimug palette lut
     u16* gUnknown_080D77DC[] = {

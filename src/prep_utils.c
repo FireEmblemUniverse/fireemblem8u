@@ -255,7 +255,7 @@ s8 CheckValidLinkArenaItemSupply(struct Unit* unit, int itemSlot, int item) {
 }
 
 //! FE8U = 0x08097F98
-s8 sub_8097F98(struct Unit* unit, int itemSlot) {
+s8 PrepCanUnitPutItemToSupply(struct Unit* unit, int itemSlot) {
 
     if (!CheckInLinkArena()) {
         return 1;

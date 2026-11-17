@@ -379,7 +379,7 @@ void sub_804881C(void)
 
     sub_8045CBC();
     sub_8045CE0();
-    sub_8041898();
+    SioInit_SW();
 
     LoadAndVerfySuspendSave();
 

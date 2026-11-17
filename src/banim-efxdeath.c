@@ -11,11 +11,11 @@
 
 CONST_DATA struct ProcCmd ProcScr_efxDeadEvent[] = {
     PROC_NAME("efxDeadEVTENT"),
-    PROC_REPEAT(sub_8052DFC),
-    PROC_REPEAT(sub_8052E7C),
-    PROC_REPEAT(sub_8052EAC),
-    PROC_REPEAT(sub_8052F24),
-    PROC_REPEAT(sub_8052F84),
+    PROC_REPEAT(EfxDeadEvent_WaitForAnims),
+    PROC_REPEAT(EfxDeadEvent_RemoveUI),
+    PROC_REPEAT(EfxDeadEvent_CallEvent),
+    PROC_REPEAT(EfxDeadEvent_WaitEvent),
+    PROC_REPEAT(EfxDeadEvent_End),
     PROC_END
 };
 
@@ -29,7 +29,7 @@ void NewEfxDeadEvent(struct Anim *anim1, struct Anim *anim2)
     gEkrDeadEventExist = true;
 }
 
-void sub_8052DFC(struct ProcEfxDead *proc)
+void EfxDeadEvent_WaitForAnims(struct ProcEfxDead *proc)
 {
     struct Anim *ais_core1 = GetAnimAnotherSide(proc->anim1);
     int ret = false;
@@ -52,7 +52,7 @@ void sub_8052DFC(struct ProcEfxDead *proc)
     Proc_Break(proc);
 }
 
-void sub_8052E7C(struct ProcEfxDead *proc)
+void EfxDeadEvent_RemoveUI(struct ProcEfxDead *proc)
 {
     if (++proc->timer == 8) {
         NewEkrWindowAppear(1, 7);
@@ -61,7 +61,7 @@ void sub_8052E7C(struct ProcEfxDead *proc)
     }
 }
 
-void sub_8052EAC(struct ProcEfxDead *proc)
+void EfxDeadEvent_CallEvent(struct ProcEfxDead *proc)
 {
     if (CheckEkrWindowAppearUnexist() == true) {
         EnableEkrGauge();
@@ -80,7 +80,7 @@ void sub_8052EAC(struct ProcEfxDead *proc)
     }
 }
 
-void sub_8052F24(struct ProcEfxDead *proc)
+void EfxDeadEvent_WaitEvent(struct ProcEfxDead *proc)
 {
     if (BattleEventEngineExists() == false) {
         PlayDeathSoundForArena();
@@ -98,7 +98,7 @@ void sub_8052F24(struct ProcEfxDead *proc)
     }
 }
 
-void sub_8052F84(struct ProcEfxDead *proc)
+void EfxDeadEvent_End(struct ProcEfxDead *proc)
 {
     if (CheckEkrWindowAppearUnexist() == true) {
         gEkrDeadEventExist = false;
@@ -109,7 +109,7 @@ void sub_8052F84(struct ProcEfxDead *proc)
 CONST_DATA struct ProcCmd ProcScr_efxDead[] = {
     PROC_NAME("efxDead"),
     PROC_REPEAT(sub_8052FEC),
-    PROC_REPEAT(sub_8053080),
+    PROC_REPEAT(EfxDead_StartAlpha),
     PROC_END
 };
 
@@ -149,7 +149,7 @@ void sub_8052FEC(struct ProcEfxDead *proc)
     }
 }
 
-void sub_8053080(struct ProcEfxDead *proc)
+void EfxDead_StartAlpha(struct ProcEfxDead *proc)
 {
     struct Anim *anim = proc->anim1;
     s16 time = ++proc->timer;
@@ -310,7 +310,7 @@ void NewEfxDeadDragonAlpha(struct Anim *anim1, struct Anim *anim2)
 void EfxDeadDragonAlphaMain(struct ProcEfxDead *proc)
 {
     if (++proc->timer > 0x3C) {
-        EfxTmFill(0);
+        EfxTmFillB(0);
         BG_Fill(gBG3TilemapBuffer, 0xF000);
         BG_EnableSyncByMask(BG3_SYNC_BIT);
         SetDefaultColorEffects();

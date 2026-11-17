@@ -60,7 +60,7 @@ void ClearSioBG(void)
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 }
 
-void sub_804309C(void)
+void ClearSioAllBGs(void)
 {
     BG_SetPosition(BG_0, 0, 0);
     BG_SetPosition(BG_1, 0, 0);

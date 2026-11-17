@@ -291,14 +291,14 @@ struct ProcEfxDead {
 };
 
 void NewEfxDeadEvent(struct Anim * anim1, struct Anim * anim2);
-void sub_8052DFC(struct ProcEfxDead * proc);
-void sub_8052E7C(struct ProcEfxDead * proc);
-void sub_8052EAC(struct ProcEfxDead * proc);
-void sub_8052F24(struct ProcEfxDead * proc);
-void sub_8052F84(struct ProcEfxDead * proc);
+void EfxDeadEvent_WaitForAnims(struct ProcEfxDead * proc);
+void EfxDeadEvent_RemoveUI(struct ProcEfxDead * proc);
+void EfxDeadEvent_CallEvent(struct ProcEfxDead * proc);
+void EfxDeadEvent_WaitEvent(struct ProcEfxDead * proc);
+void EfxDeadEvent_End(struct ProcEfxDead * proc);
 void NewEfxDead(struct Anim * anim1, struct Anim * anim2);
 void sub_8052FEC(struct ProcEfxDead * proc);
-void sub_8053080(struct ProcEfxDead * proc);
+void EfxDead_StartAlpha(struct ProcEfxDead * proc);
 void NewEfxDeadPika(struct Anim * anim1, struct Anim * anim2);
 void EfxDeadPikaMain(struct ProcEfxDead * proc);
 void NewEfxDeadAlpha(struct Anim * anim1, struct Anim * anim2);
@@ -358,8 +358,8 @@ void NewEfxWeaponIcon(s16 a, s16 b);
 void EndProcEfxWeaponIcon(void);
 void DisableEfxWeaponIcon(void);
 void EnableEfxWeaponIcon(void);
-void sub_8054F10(struct ProcEfxWeaponIcon * proc);
-void sub_8054F78(struct ProcEfxWeaponIcon * proc);
+void EfxWeaponIcon_Loop(struct ProcEfxWeaponIcon * proc);
+void EfxWeaponIcon_End(struct ProcEfxWeaponIcon * proc);
 
 struct ProcEfxSpellCast {
     PROC_HEADER;

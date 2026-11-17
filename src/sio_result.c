@@ -392,7 +392,7 @@ struct ProcCmd CONST_DATA ProcScr_SIORESULT[] =
 
     PROC_CALL(Set_0203DDDC),
 
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeToBlackWithCallBack_Speed20),
     PROC_YIELD,
 
     PROC_CALL(EndMuralBackground),
@@ -416,7 +416,7 @@ struct ProcCmd CONST_DATA ProcScr_SIORESULT_NewHighScore[] =
 
     PROC_CALL(Set_0203DDDC),
 
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeToBlackWithCallBack_Speed20),
     PROC_YIELD,
 
     PROC_CALL(EndMuralBackground),
