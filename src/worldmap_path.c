@@ -1373,7 +1373,7 @@ void GmDataInit(void)
 
     gGMData.unk_cd = 0;
 
-    StoreRNState(&gGMData.unk_ce);
+    StoreRNState(&gGMData.gmMonsterRnState);
 
     return;
 }
@@ -2073,14 +2073,14 @@ int GetChapterIndexOnWmNode(struct GMapData * worldMapData)
 //! FE8U = 0x080BD260
 void sub_80BD260(struct GMapData * src, void * dst)
 {
-    CpuSet(&src->unk_ce, dst, 3);
+    CpuSet(&src->gmMonsterRnState, dst, 3);
     return;
 }
 
 //! FE8U = 0x080BD270
 void sub_80BD270(struct GMapData * dst, void * src)
 {
-    CpuSet(src, &dst->unk_ce, 3);
+    CpuSet(src, &dst->gmMonsterRnState, 3);
     return;
 }
 

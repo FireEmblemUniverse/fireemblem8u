@@ -171,8 +171,6 @@ struct LATeamListConfig * CONST_DATA gSioTeamListConfigLut[] =
 // clang-format on
 
 extern char gUnk_Sio_0203DD50[][MULTIARENA_TEAMNAME_SIZE + 1];
-extern struct Text gUnk_Sio_0203DA88[];
-
 //! FE8U = 0x08043308
 void StartLinkArenaTeamList(ProcPtr parent)
 {
@@ -461,9 +459,9 @@ int sub_80437C0(u8 mode, struct SioTeamListProc * proc)
             color = TEXT_COLOR_SYSTEM_GRAY;
         }
 
-        ClearText(&gUnk_Sio_0203DA88[i]);
-        Text_SetColor(&gUnk_Sio_0203DA88[i], color);
-        PutDrawTextCentered(&gUnk_Sio_0203DA88[i], 1, i * 2 + 5, GetStringFromIndex(ptr[i].menuTextId), 7);
+        ClearText(&gLinkArenaSt.unk_64[i]);
+        Text_SetColor(&gLinkArenaSt.unk_64[i], color);
+        PutDrawTextCentered(&gLinkArenaSt.unk_64[i], 1, i * 2 + 5, GetStringFromIndex(ptr[i].menuTextId), 7);
 
         i++;
     }
@@ -1089,11 +1087,11 @@ void SioTeamList_StartEraseTeamSubMenu(struct SioTeamListProc * proc)
         proc->unk_58 = var * 2 + 5;
     }
 
-    ClearText(&Texts_0203DAB0);
-    Text_DrawString(&Texts_0203DAB0, GetStringFromIndex(MSG_140)); // "Erase"
-    Text_SetCursor(&Texts_0203DAB0, 38);
-    Text_DrawString(&Texts_0203DAB0, GetStringFromIndex(MSG_141)); // "Back"
-    PutText(&Texts_0203DAB0, TILEMAP_LOCATED(gBG0TilemapBuffer, 15, (proc->unk_58 + 4)));
+    ClearText(&gLinkArenaSt.unk_64[5]);
+    Text_DrawString(&gLinkArenaSt.unk_64[5], GetStringFromIndex(MSG_140)); // "Erase"
+    Text_SetCursor(&gLinkArenaSt.unk_64[5], 38);
+    Text_DrawString(&gLinkArenaSt.unk_64[5], GetStringFromIndex(MSG_141)); // "Back"
+    PutText(&gLinkArenaSt.unk_64[5], TILEMAP_LOCATED(gBG0TilemapBuffer, 15, (proc->unk_58 + 4)));
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 

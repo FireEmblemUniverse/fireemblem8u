@@ -1117,7 +1117,7 @@ void MapAnimMonsterStone_Resetfx(struct MAEffectProc * proc)
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 }
 
-struct ProcCmd CONST_DATA ProcScr_MapAnimEffect_Unk_089A3DB4[] = {
+struct ProcCmd CONST_DATA ProcScr_MapAnimEffect_unk0_89A3DB4[] = {
     PROC_SLEEP(1),
     PROC_CALL(MapAnim_Init_807E390),
     PROC_SLEEP(10),
@@ -1129,11 +1129,11 @@ struct ProcCmd CONST_DATA ProcScr_MapAnimEffect_Unk_089A3DB4[] = {
     PROC_END,
 };
 
-void StartMapAnimEffect_Unk_089A3DB4(struct Unit * unit)
+void StartMapAnimEffect_unk0_89A3DB4(struct Unit * unit)
 {
     struct MAEffectProc * proc;
 
-    proc = Proc_Start(ProcScr_MapAnimEffect_Unk_089A3DB4, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_MapAnimEffect_unk0_89A3DB4, PROC_TREE_3);
 
     proc->xDisplay = (SCREEN_TILE_X(unit->xPos) * 2 + 1) * 8;
     proc->yDisplay = (SCREEN_TILE_Y(unit->yPos)) * 16 + 18;
@@ -1152,7 +1152,7 @@ void MapAnim_Init_807E390(struct MAEffectProc * proc)
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, TILEREF(BGCHR_MANIM_160, BGPAL_MANIM_4));
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    StartMapAnimEffect_Unk_089A3EC4(2, 0, 1, proc);
+    StartMapAnimEffect_unk0_89A3EC4(2, 0, 1, proc);
     Proc_Start(ProcScr_ManimShiftingSineWaveScanlineBuf, proc);
 
     proc->unk48 = 0;
@@ -1430,16 +1430,16 @@ void SetDefaultMapAnimScreenConf(void)
     SetWOutLayers(1, 1, 0, 1, 1);
 }
 
-struct ProcCmd CONST_DATA ProcScr_MapAnimEffect_Unk_089A3EC4[] = {
+struct ProcCmd CONST_DATA ProcScr_MapAnimEffect_unk0_89A3EC4[] = {
     PROC_REPEAT(sub_807EA60),
     PROC_END,
 };
 
-void StartMapAnimEffect_Unk_089A3EC4(int bg, int x_inc, int y_inc, ProcPtr parent)
+void StartMapAnimEffect_unk0_89A3EC4(int bg, int x_inc, int y_inc, ProcPtr parent)
 {
     struct ManimSomethingProc_08067498 * proc;
 
-    proc = Proc_Start(ProcScr_MapAnimEffect_Unk_089A3EC4, parent);
+    proc = Proc_Start(ProcScr_MapAnimEffect_unk0_89A3EC4, parent);
 
     proc->bg = bg;
 
@@ -1451,7 +1451,7 @@ void StartMapAnimEffect_Unk_089A3EC4(int bg, int x_inc, int y_inc, ProcPtr paren
 
 void sub_807EA50(void)
 {
-    Proc_EndEach(ProcScr_MapAnimEffect_Unk_089A3EC4);
+    Proc_EndEach(ProcScr_MapAnimEffect_unk0_89A3EC4);
 }
 
 void sub_807EA60(struct ManimSomethingProc_08067498 * proc)

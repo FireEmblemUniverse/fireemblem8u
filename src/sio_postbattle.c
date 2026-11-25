@@ -190,7 +190,7 @@ void sub_804556C(struct SioPostBattleProc * proc)
 
     for (i = 0; i < unk_40; i++)
     {
-        char * str = gUnk_Sio_0203DAC5[i];
+        char * str = gLinkArenaSt.unk_A1[i];
 
         int len = GetStringTextLen(str);
         len = (72 - len) / 2;
@@ -201,10 +201,10 @@ void sub_804556C(struct SioPostBattleProc * proc)
         }
         else
         {
-            Text_InsertDrawString(gUnk_Sio_0203DB1C, len, 0, str);
+            Text_InsertDrawString(&Texts_0203DB14[1], len, 0, str);
         }
 
-        SioDrawNumber(gUnk_Sio_0203DB1C, i * 32 + 152, 2, proc->unk_44[i].points);
+        SioDrawNumber(&Texts_0203DB14[1], i * 32 + 152, 2, proc->unk_44[i].points);
     }
 
     return;

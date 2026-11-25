@@ -50,16 +50,6 @@ enum sio_save_config_bitfile {
     SIO_SAVE_CONF_B3 = 1 << 3,
 };
 
-struct SioSaveConf {
-    u8 _unk0_ : 1;
-    u8 _unk1_ : 1;
-    u8 _unk2_ : 1;
-    u8 _unk3_ : 1;
-    u8 _unk4_ : 4;
-    u8 _unk8_;
-} __attribute__((packed));
-extern struct SioSaveConf gSioSaveConfig;
-
 struct SioUnknown_0203DD90_Unk2C
 {
     /* 00 */ u8 unitId;
@@ -905,31 +895,18 @@ extern s16 * gUnk_Sio_02001188;
 extern struct Font Font_Sio_02000C60;
 // extern ??? gLinkArenaSt
 // extern ??? gUnknown_0203DA30
-extern struct Text gUnk_Sio_0203DA78;
-extern struct Text gUnk_Sio_0203DA88[];
-extern struct Text Texts_0203DAB0;
-extern u8 gUnk_Sio_0203DAC0[];
-extern char gUnk_Sio_0203DAC5[][15];
+extern char gSioArenaTeamNames[][15];
 
 extern struct Text Texts_0203DB14[10];
-extern struct Text gUnk_Sio_0203DB1C[];
 extern struct Font Font_0203DB64;
 // extern ??? gLinkArenaTeamList
 extern struct MultiArenaRankingEnt gSioResultRankings[];
-// extern ??? gUnk_Sio_0203DC48
 extern struct Text gSioTexts[];
-extern struct Text Text_0203DB14;
 extern s8 gUnk_Sio_0203DD24;
 extern int gUnk_Sio_0203DD28;
 extern u16 gKeyInputSequenceBuffer[];
 extern int gKeyInputSequenceTimer;
-// extern ??? gUnk_Sio_0203DD50
 extern int gUnk_Sio_0203DD8C;
-// extern ??? gUnk_Sio_0203DD90
-// extern ??? gUnk_Sio_0203DD94
-// extern ??? gUnk_Sio_0203DD95
-// extern ??? gUnk_Sio_0203DD9A
-// extern ??? gUnk_Sio_0203DDB4
 extern s8 gUnk_Sio_0203DDDC;
 
 extern const s16 SioTacticianIndexMap[];
