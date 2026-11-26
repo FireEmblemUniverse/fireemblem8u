@@ -564,7 +564,7 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     sub_80AB760(gUnknown_0200310C);
 
-    CpuFastSet(PAL_BG(BGPAL_BMDIFFICULTY_unk0_), PAL_OBJ(OBPAL_BMDIFFICULTY_UNK_5), 8);
+    CpuFastSet(PAL_BG(BGPAL_BMDIFFICULTY_UNK_0), PAL_OBJ(OBPAL_BMDIFFICULTY_UNK_5), 8);
 
     return;
 }

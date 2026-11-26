@@ -5,7 +5,7 @@
 #include "fontgrp.h"
 #include "bmunit.h"
 
-#define BGPAL_BMDIFFICULTY_unk0_ 0
+#define BGPAL_BMDIFFICULTY_UNK_0 0
 #define OBPAL_BMDIFFICULTY_UNK_5 5
 
 struct Dungeon {

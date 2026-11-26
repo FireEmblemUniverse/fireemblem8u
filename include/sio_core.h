@@ -209,7 +209,7 @@ struct LinkArenaStMaybe
     /* A0 */ u8 unk_A0;
     /* A1 */ char unk_A1[4][15];
     STRUCT_PAD(0xDD, 0xEC);
-    struct LinkArenaStMaybe_ec
+    struct LinkArenaSaveConfig
     {
         u8 _unk0_ : 1;
         u8 _unk1_ : 1;
@@ -217,7 +217,7 @@ struct LinkArenaStMaybe
         u8 _unk3_ : 1;
         u8 _unk4_ : 4;
         u8 _unk8_;
-    } SaveConfig;
+    } saveConfig;
 };
 
 extern struct LinkArenaStMaybe gLinkArenaSt;

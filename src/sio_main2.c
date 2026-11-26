@@ -143,9 +143,9 @@ void SioPlaySoundEffect(int idx)
 
 void sub_8043244(void)
 {
-    ReadMultiArenaSaveConfig(&gLinkArenaSt.SaveConfig);
-    gLinkArenaSt.SaveConfig._unk3_ = true;
-    WriteMultiArenaSaveConfig(&gLinkArenaSt.SaveConfig);
+    ReadMultiArenaSaveConfig(&gLinkArenaSt.saveConfig);
+    gLinkArenaSt.saveConfig._unk3_ = true;
+    WriteMultiArenaSaveConfig(&gLinkArenaSt.saveConfig);
 }
 
 bool IsKeyInputSequenceComplete(const u16 * list)

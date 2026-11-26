@@ -13,9 +13,9 @@
 //! FE8U = 0x0804766C
 void LoadLinkArenaRuleSettings(u8 * buf)
 {
-    buf[0] = gLinkArenaSt.SaveConfig._unk0_;
-    buf[1] = gLinkArenaSt.SaveConfig._unk1_;
-    buf[2] = gLinkArenaSt.SaveConfig._unk2_;
+    buf[0] = gLinkArenaSt.saveConfig._unk0_;
+    buf[1] = gLinkArenaSt.saveConfig._unk1_;
+    buf[2] = gLinkArenaSt.saveConfig._unk2_;
 
     return;
 }
@@ -24,13 +24,13 @@ void LoadLinkArenaRuleSettings(u8 * buf)
 void SaveLinkArenaRuleSettings(u8 * buf)
 {
     struct LinkArenaStMaybe * las = &gLinkArenaSt;
-    struct LinkArenaStMaybe_ec * SaveConfig = &las->SaveConfig;
+    struct LinkArenaSaveConfig * saveConfig = &las->saveConfig;
 
     { u32 r4 = 1; ++r4; --r4; }
 
-    SaveConfig->_unk0_ = buf[0] % 2;
-    SaveConfig->_unk1_ = buf[1] % 2;
-    SaveConfig->_unk2_ = buf[2] % 2;
+    saveConfig->_unk0_ = buf[0] % 2;
+    saveConfig->_unk1_ = buf[1] % 2;
+    saveConfig->_unk2_ = buf[2] % 2;
 
     return;
 }
@@ -136,7 +136,7 @@ void SioRuleSettings_Loop_Main(struct ProcSioRuleSettings * proc)
     if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
     {
         SioPlaySoundEffect(1);
-        WriteMultiArenaSaveConfig(&gLinkArenaSt.SaveConfig);
+        WriteMultiArenaSaveConfig(&gLinkArenaSt.saveConfig);
         Proc_Break(proc);
     }
 

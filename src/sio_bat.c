@@ -72,7 +72,7 @@ _080459E4:
 //! FE8U = 0x08045A64
 void sub_8045A64(struct SioBatProc * proc)
 {
-    int mode = gLinkArenaSt.SaveConfig._unk1_;
+    int mode = gLinkArenaSt.saveConfig._unk1_;
     int playerCount = gLinkArenaSt.unk_A0 - 1;
     u8 ranking = sub_8049A60();
     int points = gUnk_Sio_0203DD90.currentScore[gSioSt->selfId];
@@ -126,7 +126,7 @@ void sub_8045AF4(void)
             SetUnitStatus(unit, 0);
             unit->rescue = 0;
 
-            if ((gLinkArenaSt.SaveConfig._unk2_) == 0)
+            if ((gLinkArenaSt.saveConfig._unk2_) == 0)
             {
                 sub_80431B4(unit);
             }
@@ -147,7 +147,7 @@ void sub_8045AF4(void)
                 continue;
             }
 
-            if (gLinkArenaSt.SaveConfig._unk0_ == 0)
+            if (gLinkArenaSt.saveConfig._unk0_ == 0)
             {
                 unit->state = US_BIT9;
             }
@@ -557,9 +557,9 @@ void sub_8046234(struct SioBatProc * proc)
         proc->unk_3b = GetGameClock() % gLinkArenaSt.unk_A0;
         proc->unk_39 = gLinkArenaSt.unk_A0 * ((AdvanceGetLCGRNValue() & 3) + 4) + proc->unk_3b;
 
-        buf[0] = gLinkArenaSt.SaveConfig._unk0_;
-        buf[1] = gLinkArenaSt.SaveConfig._unk2_;
-        buf[2] = gLinkArenaSt.SaveConfig._unk1_;
+        buf[0] = gLinkArenaSt.saveConfig._unk0_;
+        buf[1] = gLinkArenaSt.saveConfig._unk2_;
+        buf[2] = gLinkArenaSt.saveConfig._unk1_;
         buf[3] = proc->unk_3b;
         buf[4] = proc->unk_39;
 
@@ -603,15 +603,15 @@ void sub_80462D4(struct SioBatProc * proc)
             {
                 struct LinkArenaStMaybe * las = &gLinkArenaSt;
                 u8 * buf2 = buf;
-                struct LinkArenaStMaybe_ec * SaveConfig = &las->SaveConfig;
+                struct LinkArenaSaveConfig * saveConfig = &las->saveConfig;
 
                 // clang-format off
                 { u32 r4 = 1; ++r4; --r4; }
                 // clang-format on
 
-                SaveConfig->_unk0_ = buf2[0] % 2;
-                SaveConfig->_unk2_ = buf[1] % 2;
-                SaveConfig->_unk1_ = buf[2] % 2;
+                saveConfig->_unk0_ = buf2[0] % 2;
+                saveConfig->_unk2_ = buf[1] % 2;
+                saveConfig->_unk1_ = buf[2] % 2;
 
                 proc->unk_3b = buf[3];
                 proc->unk_39 = buf[4];
@@ -678,7 +678,7 @@ void sub_8046478(struct Unit * unit)
     SetUnitStatus(unit, 0);
     unit->rescue = 0;
 
-    if (gLinkArenaSt.SaveConfig._unk2_ == 0)
+    if (gLinkArenaSt.saveConfig._unk2_ == 0)
     {
         sub_80431B4(unit);
     }
@@ -779,7 +779,7 @@ void sub_8046580(struct SioBatProc * proc)
                 gUnk_Sio_0203DD90.unk_24[outSenderId[0]] = GetUnitMiniPortraitId(unit);
             }
 
-            if (gLinkArenaSt.SaveConfig._unk0_ == 0)
+            if (gLinkArenaSt.saveConfig._unk0_ == 0)
             {
                 unit->state = US_BIT9;
             }

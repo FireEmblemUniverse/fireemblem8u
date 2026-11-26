@@ -466,7 +466,7 @@ struct GMapData
     /* C9 */ u8 unk_c9[3]; // List of active world map skirmishes
     /* CC */ u8 unk_cc; // used to determine which skirmish enemy block to load
     /* CD */ u8 unk_cd;
-    /* CE */ u16 gmMonsterRnState; //actually a array of size 3
+    /* CE */ u16 gmMonsterRnState; // represent the start of u16 array of size 3 that extends beyond the structure size
 };
 
 enum

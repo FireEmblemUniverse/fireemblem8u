@@ -649,7 +649,7 @@ int sub_8049A60(void)
 
     u32 score = gUnk_Sio_0203DD90.currentScore[gSioSt->selfId];
 
-    if (gLinkArenaSt.SaveConfig._unk1_)
+    if (gLinkArenaSt.saveConfig._unk1_)
     {
         for (i = 0; i < 4; i++)
         {

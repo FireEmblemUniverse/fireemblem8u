@@ -109,8 +109,8 @@ void SioMenu_LoadGraphics(struct SioMenuProc * proc)
     int enabled;
     int i;
 
-    ReadMultiArenaSaveConfig(&gLinkArenaSt.SaveConfig);
-    proc->unk_59 = gLinkArenaSt.SaveConfig._unk3_;
+    ReadMultiArenaSaveConfig(&gLinkArenaSt.saveConfig);
+    proc->unk_59 = gLinkArenaSt.saveConfig._unk3_;
 
     InitSioBG();
     StartMuralBackgroundExt(proc, 0, 0x10, 4, 0);
@@ -256,8 +256,8 @@ void SioMenu_RestartGraphicsMaybe(struct SioMenuProc * proc)
     int i;
     int idx;
 
-    ReadMultiArenaSaveConfig(&gLinkArenaSt.SaveConfig);
-    proc->unk_59 = gLinkArenaSt.SaveConfig._unk3_;
+    ReadMultiArenaSaveConfig(&gLinkArenaSt.saveConfig);
+    proc->unk_59 = gLinkArenaSt.saveConfig._unk3_;
 
     InitSioBG();
     StartMuralBackgroundExt(proc, 0, 0x10, 4, 0);

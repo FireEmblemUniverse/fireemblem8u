@@ -192,13 +192,13 @@ void PutGuideBottomBarText(void)
         return;
     }
 
-    ClearText(&gGuideSt->SaveConfig);
+    ClearText(&gGuideSt->unk_ec);
     PutDrawText(
-        &gGuideSt->SaveConfig, TILEMAP_LOCATED(gBG0TilemapBuffer, 4, 18), TEXT_COLOR_SYSTEM_WHITE, 0, 22,
+        &gGuideSt->unk_ec, TILEMAP_LOCATED(gBG0TilemapBuffer, 4, 18), TEXT_COLOR_SYSTEM_WHITE, 0, 22,
         GetStringFromIndex(0x05D4)); // TODO: msgid "About"
 
     Text_DrawString(
-        &gGuideSt->SaveConfig, GetStringFromIndex(gTextIds_GuideCategoriesTopic[gGuideSt->unk_54[gGuideSt->categoryIdx]]));
+        &gGuideSt->unk_ec, GetStringFromIndex(gTextIds_GuideCategoriesTopic[gGuideSt->unk_54[gGuideSt->categoryIdx]]));
 
     return;
 }
@@ -932,7 +932,7 @@ void Guide_Init(ProcPtr proc)
 
     ResetTextFont();
 
-    InitText(&gGuideSt->SaveConfig, 22);
+    InitText(&gGuideSt->unk_ec, 22);
 
     PutGuideBottomBarText();
 

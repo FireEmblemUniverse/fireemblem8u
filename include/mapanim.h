@@ -332,12 +332,12 @@ extern CONST_DATA struct ProcCmd ProcScr_MapAnimRestore[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimSleep[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimMonsterStone[];
 extern CONST_DATA void * TsaSet_MonsterStoneMapAnimfx[];
-extern CONST_DATA struct ProcCmd ProcScr_MapAnimEffect_unk0_89A3DB4[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimEffect_Unk_089A3DB4[];
 extern CONST_DATA u8 gUnknown_089A3DFC[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimSilencefx[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimBarrierfx[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimUnlock[];
-extern CONST_DATA struct ProcCmd ProcScr_MapAnimEffect_unk0_89A3EC4[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimEffect_Unk_089A3EC4[];
 // extern ??? gManimLevelUpLabelInfoList
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpStatGainLabel[];
 extern CONST_DATA struct ProcCmd ProcScr_ManimLevelUpLabelColor[];
@@ -984,7 +984,7 @@ void MapAnimMonsterStone_Loop1(struct MAEffectProc * proc);
 void MapAnimMonsterStone_Resetfx(struct MAEffectProc * proc);
 
 /* Unused mapanim effect? */
-void StartMapAnimEffect_unk0_89A3DB4(struct Unit * unit);
+void StartMapAnimEffect_Unk_089A3DB4(struct Unit * unit);
 void MapAnim_Init_807E390(struct MAEffectProc * proc);
 void MapAnim_Loop1_807E404(struct MAEffectProc * proc);
 void MapAnim_Loop2_807E448(struct MAEffectProc * proc);
@@ -1016,7 +1016,7 @@ struct ManimSomethingProc_08067498
     /* 6A */ s16 y_inc;
 };
 
-void StartMapAnimEffect_unk0_89A3EC4(int bg, int x_inc, int y_inc, ProcPtr parent);
+void StartMapAnimEffect_Unk_089A3EC4(int bg, int x_inc, int y_inc, ProcPtr parent);
 void sub_807EA50(void);
 void sub_807EA60(struct ManimSomethingProc_08067498 * proc);
 void PutManimLevelUpFrame(int actor_id, int x, int y);

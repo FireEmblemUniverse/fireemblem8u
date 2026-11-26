@@ -48,7 +48,7 @@ struct GuideSt
     /* AC */ struct Text unk_ac;
     /* B4 */ struct Text unk_b4[6];
     /* E4 */ struct Text unk_e4;
-    /* EC */ struct Text SaveConfig;
+    /* EC */ struct Text unk_ec;
 };
 
 struct GuideProc
