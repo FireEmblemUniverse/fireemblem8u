@@ -1373,7 +1373,7 @@ void GmDataInit(void)
 
     gGMData.unk_cd = 0;
 
-    StoreRNState(&gGMData.gmMonsterRnState);
+    StoreRNState(gGMData.gmMonsterRnState);
 
     return;
 }

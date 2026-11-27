@@ -124,7 +124,6 @@ int LoadSaveMenuInfo(int slot)
     struct PlaySt chapterData;
     struct Unit unit;
     struct GMapData mapData;
-    u8 localbuffer[4] __attribute__((unused));
 
     if (!IsSaveValid(slot))
         return 0;
