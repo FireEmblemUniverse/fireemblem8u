@@ -649,7 +649,7 @@ int sub_8049A60(void)
 
     u32 score = gUnk_Sio_0203DD90.currentScore[gSioSt->selfId];
 
-    if (gLinkArenaSt.unk_ec.unk_0_1)
+    if (gLinkArenaSt.saveConfig._unk1_)
     {
         for (i = 0; i < 4; i++)
         {
@@ -1717,7 +1717,7 @@ void sub_804AAFC(struct SioProc85AA4CC * proc)
 
             case 6:
                 EndLinkArenaPointsBox();
-                SioStrCpy(gUnk_Sio_0203DAC5[buf[0]], gUnknown_03001850);
+                SioStrCpy(gLinkArenaSt.unk_A1[buf[0]], gUnknown_03001850);
                 NewPopup_Simple(gUnknown_085AA1FC, 0x60, 0, 0);
 
                 Proc_Goto(proc, 3);

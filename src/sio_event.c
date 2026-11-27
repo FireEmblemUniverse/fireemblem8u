@@ -227,7 +227,7 @@ void DrawXMapSendProgress(struct SioBigSendProc * proc)
         PlaySoundEffect(SONG_7D);
         proc->unk_3C++;
 
-        PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], "送信中" /* "Sending" */, proc->unk_3C);
+        PutXMapProgressPercent(&gLinkArenaSt.unk_64[0], "送信中" /* "Sending" */, proc->unk_3C);
         DrawStatBarGfx(
             0x100, 0xe, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, proc->unk_3C, 100 - proc->unk_3C);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -244,7 +244,7 @@ void DrawXMapReceiveProgress(struct SioBigReceiveProc * proc)
         PlaySoundEffect(SONG_7D);
         proc->unk_3C++;
 
-        PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], "受信中" /* "Receiving" */, proc->unk_3C);
+        PutXMapProgressPercent(&gLinkArenaSt.unk_64[0], "受信中" /* "Receiving" */, proc->unk_3C);
         DrawStatBarGfx(
             0x100, 0xe, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, proc->unk_3C, 100 - proc->unk_3C);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -325,7 +325,7 @@ void XMapTransfer_8048730(void)
     SetTextFont(&Font_0203DB64);
     InitSystemTextFont();
 
-    PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], GetStringFromIndex(0x77E), 0);
+    PutXMapProgressPercent(&gLinkArenaSt.unk_64[0], GetStringFromIndex(0x77E), 0);
     DrawStatBarGfx(0x100, 0xd, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, 0, 100);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -365,7 +365,7 @@ void sub_80487C0(struct Proc * proc)
     SetTextFont(&Font_0203DB64);
     InitSystemTextFont();
 
-    InitTextDb(gUnk_Sio_0203DA88, 10);
+    InitTextDb(gLinkArenaSt.unk_64, 10);
 
     Sound_FadeOutBGM(1);
 

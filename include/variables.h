@@ -147,7 +147,6 @@ extern u8 gChapterFlagBits[];
 extern struct GMapData gGMData;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
-extern u16 gGmMonsterRnState[];
 extern struct Font gFontClassChgMenu;
 extern struct Font gFontClassChg;
 extern s8 gUnknown_03005398;

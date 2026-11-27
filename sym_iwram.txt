@@ -36,7 +36,6 @@
 . = 0x001780; gDebugChapterModeIndex = .;
 . = 0x001788; gUnknown_03001788 = .;
 . = 0x0017A0; gDungeonState = .;
-. = 0x0017AC; gUnknown_030017AC = .;
 . = 0x0017C8;
 . = ALIGN(4); src/cp_script.o(.bss);
 . = ALIGN(4); src/cp_battle.o(.bss);
@@ -63,10 +62,8 @@
 . = 0x001C35; gUnknown_03001C35 = .;
 . = 0x001C36; gUnknown_03001C36 = .;
 . = 0x001C38; gUnitDef1 = .;
-. = 0x001C48; gUnknown_03001C48 = .;
 . = 0x001C50; gUnitDef2 = .;
 . = 0x001C68; gUnitDefEggHatching = .;
-. = 0x001C74; gUnknown_03001C74 = .;
 . = 0x001C7C; gUnknown_03001C7C = .;
 . = 0x001C80; gActiveEventRegistry = .;
 . = 0x001CC0; gUdefCnt = .;
@@ -89,12 +86,10 @@
 
 /* COMMON */
 . = 0x002C60; SoundMainRAM_Buffer = .;
-. = 0x002C61; gUnknown_03002C61 = .;
 . = 0x003060; gUnknown_03003060 = .;
 . = 0x003070; gOamLoPutIt = .;
 . = 0x003070; gOamLoPutIt = .;
 . = 0x003080; gLCDControlBuffer = .;
-. = 0x0030D8; gUnknown_030030D8 = .;
 . = 0x0030F0; gIRQHandlers = .;
 . = 0x003128; gUnknown_03003128 = .;
 . = 0x00312C; gOamAffinePutId = .;
@@ -139,9 +134,6 @@
 . = 0x005250; gPermanentFlagBits = .;
 . = 0x005270; gChapterFlagBits = .;
 . = 0x005280; gGMData = .;
-. = 0x005324; gUnknown_03005324 = .;
-. = 0x005349; gUnknown_03005349 = .;
-. = 0x00534E; gGmMonsterRnState = .;
 . = 0x005360; gFontClassChgMenu = .;
 . = 0x005380; gFontClassChg = .;
 . = 0x005398; gUnknown_03005398 = .;
@@ -153,9 +145,6 @@
 . = 0x006400; gMPlayInfo_SE5_BMP3 = .;
 . = 0x006440; gMPlayInfo_BGM1 = .;
 . = 0x006480; gMPlayJumpTable = .;
-. = 0x006484; gUnknown_03006484 = .;
-. = 0x006508; gUnknown_03006508 = .;
-. = 0x00650C; gUnknown_0300650C = .;
 . = 0x006510; gCgbChans = .;
 . = 0x006610; gMPlayInfo_SE6_BMP4 = .;
 . = 0x006650; gMPlayInfo_BGM2 = .;

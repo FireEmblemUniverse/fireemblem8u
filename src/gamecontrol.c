@@ -598,7 +598,7 @@ void GameControl_ChapterSwitch(struct GameCtrlProc* proc) {
         NextRN();
     }
 
-    StoreRNState(gGmMonsterRnState);
+    StoreRNState(gGMData.gmMonsterRnState);
 
     if (CheckFlag(3) != 0) {
         RegisterChapterTimeAndTurnCount(&gPlaySt);

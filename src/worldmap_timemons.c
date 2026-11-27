@@ -225,7 +225,7 @@ int GenerateRandomonsterMergeConf(int chapter, struct GmapTimeMonsConf * out)
             array[i] = 0;
     }
     StoreRNState(seeds);
-    ptr = gGmMonsterRnState;
+    ptr = gGMData.gmMonsterRnState;
     LoadRNState(ptr);
 
     for (i = 0; i < cnt; i++)
@@ -242,7 +242,7 @@ int GenerateRandomonsterMergeConf(int chapter, struct GmapTimeMonsConf * out)
         zeromus = array + node;
         *zeromus = 0;
     }
-    StoreRNState(gGmMonsterRnState);
+    StoreRNState(gGMData.gmMonsterRnState);
     LoadRNState(seeds);
     return cnt;
 }

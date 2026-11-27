@@ -118,7 +118,7 @@ void sub_8048884(struct SioProc85A971C_Unk44 * buf)
 
     int r3 = gLinkArenaSt.unk_A0;
 
-    if (gLinkArenaSt.unk_ec.unk_0_1 != 0) // TODO: Survival mode?
+    if (gLinkArenaSt.saveConfig._unk1_ != 0) // TODO: Survival mode?
     {
         for (i = 0; i < r3; i++)
         {

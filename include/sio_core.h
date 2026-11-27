@@ -207,14 +207,17 @@ struct LinkArenaStMaybe
     /* 64 */ struct Text unk_64[7]; // maybe not all text?
     /* 9C */ u8 linking_status[4];
     /* A0 */ u8 unk_A0;
-    /* A1 */ u8 unk_A1[4][15];
+    /* A1 */ char unk_A1[4][15];
     STRUCT_PAD(0xDD, 0xEC);
-    struct LinkArenaStMaybe_ec
+    struct LinkArenaSaveConfig
     {
-        u8 unk_0_0 : 1;
-        u8 unk_0_1 : 1;
-        u8 unk_0_2 : 1;
-    } unk_ec;
+        u8 _unk0_ : 1;
+        u8 _unk1_ : 1;
+        u8 _unk2_ : 1;
+        u8 _unk3_ : 1;
+        u8 _unk4_ : 4;
+        u8 _unk8_;
+    } saveConfig;
 };
 
 extern struct LinkArenaStMaybe gLinkArenaSt;

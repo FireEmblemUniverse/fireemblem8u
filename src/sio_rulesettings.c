@@ -13,9 +13,9 @@
 //! FE8U = 0x0804766C
 void LoadLinkArenaRuleSettings(u8 * buf)
 {
-    buf[0] = gLinkArenaSt.unk_ec.unk_0_0;
-    buf[1] = gLinkArenaSt.unk_ec.unk_0_1;
-    buf[2] = gLinkArenaSt.unk_ec.unk_0_2;
+    buf[0] = gLinkArenaSt.saveConfig._unk0_;
+    buf[1] = gLinkArenaSt.saveConfig._unk1_;
+    buf[2] = gLinkArenaSt.saveConfig._unk2_;
 
     return;
 }
@@ -24,13 +24,13 @@ void LoadLinkArenaRuleSettings(u8 * buf)
 void SaveLinkArenaRuleSettings(u8 * buf)
 {
     struct LinkArenaStMaybe * las = &gLinkArenaSt;
-    struct LinkArenaStMaybe_ec * unk_ec = &las->unk_ec;
+    struct LinkArenaSaveConfig * saveConfig = &las->saveConfig;
 
     { u32 r4 = 1; ++r4; --r4; }
 
-    unk_ec->unk_0_0 = buf[0] % 2;
-    unk_ec->unk_0_1 = buf[1] % 2;
-    unk_ec->unk_0_2 = buf[2] % 2;
+    saveConfig->_unk0_ = buf[0] % 2;
+    saveConfig->_unk1_ = buf[1] % 2;
+    saveConfig->_unk2_ = buf[2] % 2;
 
     return;
 }
@@ -52,11 +52,11 @@ void sub_80476CC(int idx, int state)
 
     for (i = 0; i < 2; i++)
     {
-        ClearText(&gUnk_Sio_0203DA88[(idx << 1) + i]);
-        Text_SetColor(&gUnk_Sio_0203DA88[(idx << 1) + i], textColorLut[(state + i) & 1]);
-        Text_DrawString(&gUnk_Sio_0203DA88[(idx << 1) + i], GetStringFromIndex(gLinkArenaRuleData[idx].optionTextId[i]));
+        ClearText(&gLinkArenaSt.unk_64[(idx << 1) + i]);
+        Text_SetColor(&gLinkArenaSt.unk_64[(idx << 1) + i], textColorLut[(state + i) & 1]);
+        Text_DrawString(&gLinkArenaSt.unk_64[(idx << 1) + i], GetStringFromIndex(gLinkArenaRuleData[idx].optionTextId[i]));
         PutText(
-            &gUnk_Sio_0203DA88[(idx << 1) + i],
+            &gLinkArenaSt.unk_64[(idx << 1) + i],
             TILEMAP_LOCATED(gBG0TilemapBuffer, gLinkArenaRuleData[idx].xPos[i], 6 + idx * 3));
     }
 
@@ -136,7 +136,7 @@ void SioRuleSettings_Loop_Main(struct ProcSioRuleSettings * proc)
     if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
     {
         SioPlaySoundEffect(1);
-        WriteMultiArenaSaveConfig(&gSioSaveConfig);
+        WriteMultiArenaSaveConfig(&gLinkArenaSt.saveConfig);
         Proc_Break(proc);
     }
 

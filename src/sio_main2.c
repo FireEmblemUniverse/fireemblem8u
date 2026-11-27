@@ -97,7 +97,7 @@ void sub_8043164(void)
 {
     int i;
     for (i = 0; i < 6; i++)
-        InitText(&gUnk_Sio_0203DA88[i], 12);
+        InitText(&gLinkArenaSt.unk_64[i], 12);
 
     for (i = 0; i < 11; i++)
         InitText(&gLinkArenaSt.texts[i], 12);
@@ -143,9 +143,9 @@ void SioPlaySoundEffect(int idx)
 
 void sub_8043244(void)
 {
-    ReadMultiArenaSaveConfig(&gSioSaveConfig);
-    gSioSaveConfig._unk3_ = true;
-    WriteMultiArenaSaveConfig(&gSioSaveConfig);
+    ReadMultiArenaSaveConfig(&gLinkArenaSt.saveConfig);
+    gLinkArenaSt.saveConfig._unk3_ = true;
+    WriteMultiArenaSaveConfig(&gLinkArenaSt.saveConfig);
 }
 
 bool IsKeyInputSequenceComplete(const u16 * list)

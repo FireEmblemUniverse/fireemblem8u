@@ -30,7 +30,6 @@ void SaveMenuInitSaveSlotData(u8 slot, struct SaveMenuProc * proc)
 {
     struct PlaySt playSt;
     struct GMapData worldMapData;
-    u8 localbuffer[4] __attribute__((unused));
 
     if (slot < 3)
     {

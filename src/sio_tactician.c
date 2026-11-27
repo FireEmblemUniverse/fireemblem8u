@@ -649,11 +649,11 @@ void TacticianDrawCharacters(struct ProcTactician * proc)
     struct Text * text;
     const char * str = proc->str;
 
-    ClearText(&Text_0203DB14);
+    ClearText(&gSioTexts[2]);
 
     if (*str != '\0')
     {
-        text = &Text_0203DB14;
+        text = &gSioTexts[2];
         x = 0;
     
         while (*str != '\0')
@@ -663,7 +663,7 @@ void TacticianDrawCharacters(struct ProcTactician * proc)
             x = x + 7;
         }
     }
-    PutText(&Text_0203DB14, TILEMAP_LOCATED(gBG0TilemapBuffer, 12, 5));
+    PutText(&gSioTexts[2], TILEMAP_LOCATED(gBG0TilemapBuffer, 12, 5));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
 
@@ -716,7 +716,7 @@ void Tactician_InitScreen(struct ProcTactician * proc)
         proc->max_len = 9;
 
     proc->cur_len = 0;
-    InitText(&Text_0203DB14, 8);
+    InitText(&gSioTexts[2], 8);
     proc->line_idx = 1;
     proc->conf_idx = 6;
 
@@ -727,7 +727,7 @@ void Tactician_InitScreen(struct ProcTactician * proc)
     for (i = 0; i < 10; i++)
         InitText(Texts_0203DB14 + i, 0x1A);
 
-    InitText(&Texts_0203DAB0, 0xC);
+    InitText(&gLinkArenaSt.unk_64[5], 0xC);
     StartLinkArenaTitleBanner(proc->child1, 3, 0x500);
     sub_804C508();
     gUnk_Sio_0203DD24 = 0;
@@ -1186,13 +1186,13 @@ void NameSelect_DrawName(struct ProcTactician * proc)
 
     sub_804D80C();
 
-    ClearText(&Texts_0203DAB0);
+    ClearText(&gLinkArenaSt.unk_64[5]);
 
-    Text_DrawString(&Texts_0203DAB0, GetStringFromIndex(0x141)); // TODO: msgid "Back"
-    Text_SetCursor(&Texts_0203DAB0, 38);
+    Text_DrawString(&gLinkArenaSt.unk_64[5], GetStringFromIndex(0x141)); // TODO: msgid "Back"
+    Text_SetCursor(&gLinkArenaSt.unk_64[5], 38);
 
-    Text_DrawString(&Texts_0203DAB0, GetStringFromIndex(0x146)); // TODO: msgid "Entry"
-    PutText(&Texts_0203DAB0, TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 12));
+    Text_DrawString(&gLinkArenaSt.unk_64[5], GetStringFromIndex(0x146)); // TODO: msgid "Entry"
+    PutText(&gLinkArenaSt.unk_64[5], TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 12));
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
